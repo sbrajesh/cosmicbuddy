@@ -55,7 +55,7 @@
 		</div>
 		<?php do_action( 'bp_after_blog_search' ) ?>
 	</div>
-	<?php get_sidebar("blog");?>
+	<?php cb_get_sidebar("blog");?>
 	<br class="clear" />
 </div>
 </div><!--end of container-->

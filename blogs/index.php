@@ -59,7 +59,7 @@
 	<?php do_action( 'bp_after_directory_blogs_content' ) ?>		
 	<?php do_action( 'bp_before_directory_blogs_sidebar' ) ?>		
 	
-	<?php get_sidebar("blogs-directory");?>
+	<?php cb_get_sidebar("blogs-directory");?>
 	<br class="clear" />
 </div>
 

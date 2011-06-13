@@ -31,7 +31,7 @@
 			<?php endif; ?>
 <?php endif;?>
 	</div>
-	<?php get_sidebar();?>
+	<?php cb_get_sidebar("home");?>
 	<br class="clear" />
 	<?php
 	include_once("featured-bottom.php");?>

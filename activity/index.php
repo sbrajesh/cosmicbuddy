@@ -28,7 +28,7 @@
 	</div>
 	
 	</div>
-	<?php get_sidebar("home");?>
+	<?php cb_get_sidebar("home");?>
 	<br class="clear" />
 </div>
 </div><!--end of container-->

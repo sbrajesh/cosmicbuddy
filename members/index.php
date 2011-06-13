@@ -63,7 +63,7 @@
 	
 		</div>
 	</div>
-	<?php get_sidebar("members-directory");?>
+	<?php cb_get_sidebar("members-directory");?>
 	<br class="clear" />
 </div>
 

@@ -12,7 +12,7 @@
 		<?php do_action( 'bp_after_blog_search' ) ?>
 	</div>
 	</div>
-	<?php get_sidebar("home");?>
+	<?php cb_get_sidebar("search");?>
 	<br class="clear" />
 </div>
 </div><!--end of container-->

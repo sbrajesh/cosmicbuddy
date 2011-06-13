@@ -35,7 +35,7 @@
 	</div>
 	<?php do_action( 'bp_after_branded_login' ) ?>
 	</div>
-	<?php get_sidebar("register");?>
+	<?php cb_get_sidebar("blogin");?>
 	<br class="clear" />
 </div>
 </div><!--end of container-->

@@ -83,7 +83,7 @@
 	<?php do_action( 'bp_after_directory_forums_content' ) ?>		
 	<?php do_action( 'bp_before_directory_forums_sidebar' ) ?>		
 	
-	<?php get_sidebar("forums-directory");?>
+	<?php cb_get_sidebar("forums-directory");?>
 	<br class="clear" />
 </div>
 

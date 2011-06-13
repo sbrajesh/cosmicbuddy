@@ -353,7 +353,7 @@
 	
 
 	</div>
-	<?php get_sidebar();?>
+	<?php cb_get_sidebar("register");?>
 	<br class="clear" />
 </div>
 </div><!--end of container-->

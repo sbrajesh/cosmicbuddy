@@ -55,7 +55,7 @@
 	</div>
 	<?php do_action( 'bp_after_directory_groups_content' ) ?>		
 	<?php do_action( 'bp_before_directory_groups_sidebar' ) ?>
-	<?php get_sidebar("groups-directory");?>
+	<?php cb_get_sidebar("groups-directory");?>
 	<br class="clear" />
 </div>
 

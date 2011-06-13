@@ -358,4 +358,16 @@ function cb_get_thumb_size(){
     return true;
 }
 
+
+/***extra new functions*/
+/**
+ * Includes sidebar in pages
+ * Filter on cb_show_sidebar to hide it for specific component
+ * @param type $name : name passed to get_sidebar
+ */
+function cb_get_sidebar($name){
+   if(apply_filters("cb_show_sidebar",true)) //filter on this for specific page/component to hide the sidebar
+       get_sidebar ($name);
+}
+
 ?>

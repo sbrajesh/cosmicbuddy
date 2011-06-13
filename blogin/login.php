@@ -67,7 +67,7 @@
 	</div>
 	<?php do_action( 'bp_after_branded_login' ) ?>
 	</div>
-	<?php get_sidebar("register");?>
+	<?php cb_get_sidebar("register");?>
 	<br class="clear" />
 </div>
 </div><!--end of container-->

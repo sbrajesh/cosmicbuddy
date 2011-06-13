@@ -48,7 +48,7 @@
 
 		<?php do_action( 'bp_after_activation_page' ) ?>
 	</div>
-	<?php get_sidebar();?>
+	<?php cb_get_sidebar("activate");?>
 	<br class="clear" />
 </div>
 </div><!--end of container-->
