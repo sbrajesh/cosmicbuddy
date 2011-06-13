@@ -1,0 +1,455 @@
+/*for all widgets*/
+.widget {
+	color:#414C4F;
+	clear:left;
+	margin-bottom:10px;
+}
+.widget h2.widgettitle, .widget h2.widgettitle a, .widget .widgettitle, .widget .widgettitle a {
+	font-family:georgia;
+	color:#306C74;
+	font-weight:normal;
+}
+.widget .widget-content h3 {
+	font-size:14px;
+}
+/* All lists of content contain this generic class along with an ID such as "group-list, friend-list" etc. */
+	ul.item-list {
+	margin: 0;
+	padding:0;
+	list-style: none;
+}
+ul.item-list li {
+	position: relative;
+	min-height: 65px;
+	border-bottom: 1px solid #F4F6FA;
+	padding-top: 15px;
+	clear:left;/*for IE 6 bugs*/
+}
+ul.item-list li div.item {
+}
+ul.item-list img.avatar {
+	float: left;
+	margin-right: 5px;
+}
+ul.item-list h4 {
+	font-size: 1em;
+}
+/* Actions with a item in a list have a div.action wrapped around them */
+		div.action {
+	position: absolute;
+	right: 0;
+	top: 15px;
+	text-align: right;
+}
+/* .activity -- All "active X ago" items have this span.activity wrapped around them */
+	span.activity {
+	position: relative;
+	color:#8A8988;
+	padding: 3px 0;
+	/*top: 5px;*/
+		font-size: 0.9em;
+}
+/* All avatar images have this class */
+	img.avatar {
+	border: 2px solid #E9EAF4;
+}
+div.pagination-links {
+	margin:5px 0px;
+}
+div.pagination-links span.page-numbers, div.pagination-links a.page-numbers, div.pagination-links a.next, div.pagination-links a.prev {
+	padding: 3px 0px;
+	background: url(../images/pagination_bg.gif) no-repeat;
+	margin-right: 10px;
+	display:block;
+	float:left;
+	width:22px;
+	text-align:center;
+	color:#414C4F;
+}
+div.pagination-links a.next, div.pagination-links a.prev {
+	background: url(../images/pagination_next.gif) no-repeat;
+	margin-top: 3px;
+	text-indent:-9999px;
+}
+div.pagination-links a.prev {
+	background: url(../images/pagination_prev.gif) no-repeat;
+}
+div.pagination-links span.current {
+	font-weight:bold;
+}
+.item-meta em a {
+	color:#96B139;
+}
+/*sitewide activity*/
+/***********************************************************************************
+ * Component specific styles 
+ */
+/*for welcome widget*/
+#content .widget_cb_welcome_widget h2.widgettitle, #content .widget_bp_core_welcome_widget h2.widgettitle {
+	background-image:none;
+	font-size:24px;
+	font-weight:normal;
+	color:#306C74;
+	padding-left:0;
+}
+#content .widget_cb_welcome_widget p, #content .widget_bp_core_welcome_widget p {
+	margin-bottom:10px;
+}
+.widget-content h3 {
+	margin:5px 0px;
+	font-weight:bold;
+}
+/**** ACTIVITY STREAMS ***************************/
+.activity-list {
+	padding: 10px 0 5px 0 !important;
+}
+li .activity-avatar, li .item-avatar {
+	float:left;
+}
+.activity-list li {
+	position: relative;
+	margin: 5px 0px;
+ padding: 0 50px 0 0px  background: none !important;
+	clear:left;
+}
+.activity-list li p a {
+	text-decoration:underline;
+}
+.activity-list li div.activity-avatar {
+	float:left;
+}
+.widget .activity-list li div.activity-avatar img.avatar {
+	border-width: 2px;
+}
+.internal-page .activity-list li div.activity-avatar img.avatar {
+	border-top-width: 3px !important;
+	border-right-width: 2px !important;
+	border-bottom-width: 2px !important;
+	border-left-width: 3px !important;
+}
+.activity-list li blockquote {
+	padding: 7px 15px 7px 25px;
+	background: url(../images/quotes_background.gif) 10px 9px no-repeat #F0F6F9;
+	margin-left:30px;
+}
+.activity-list li blockquote p {
+	margin: 0;
+	overflow: hidden;
+}
+.activity-list li span.time-since {
+	font-size: 0.8em;
+	color: #999;
+}
+/*for activity filters*/
+	ul#activity-filter-links {
+	margin: 15px 0px 0px 0px;
+	padding: 0;
+	list-style: none;
+	overflow: hidden;
+	clear:left;
+}
+ul#activity-filter-links li {
+	float: left;
+}
+ul#activity-filter-links li a {
+	margin:0;
+	padding:0;
+	text-indent:-999em;
+	height:35px;
+	display: block;
+}
+ul#activity-filter-links li.selected a {
+	font-weight: bold;
+}
+ul#activity-filter-links li#afilter-blogs a {
+	background: url(../images/blogs_filter_tab.gif) no-repeat;
+	width:85px;
+}
+ul#activity-filter-links li#afilter-profile a {
+	background: url(../images/profile_filter_tab.gif) no-repeat;
+	width:85px;
+}
+ul#activity-filter-links li#afilter-friends a {
+	background: url(../images/friends_filter_tab.gif) no-repeat;
+	width:95px;
+}
+ul#activity-filter-links li#afilter-groups a {
+	background: url(../images/groups_filter_tab.gif) no-repeat;
+	width:95px;
+}
+ul#activity-filter-links li#afilter-wire a {
+	background: url(../images/wire_bullet.gif) no-repeat;
+	width:85px;
+}
+ul#activity-filter-links li#afilter-status a {
+	background: url(../images/status_filter_tab.gif) no-repeat;
+	width:85px;
+}
+ul#activity-filter-links li#afilter-clear a {
+	background: url(../images/clearfilter_tab.gif) no-repeat;
+	width:105px;
+}
+a.rss-image {
+	background: url( ../images/rss.png ) top left no-repeat;
+	width: 10px;
+	height: 10px;
+	margin-top: 3px;
+	display: block;
+	float: right;
+	text-indent: -999em;
+	overflow: hidden;
+}
+.widget_bp_activity_widget ul#site-wide-stream {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+#site-wide-stream p {
+	color:#A3A2A2;
+	margin-bottom:10px;
+}
+#site-wide-stream p span.time-since {
+	color:#7A7776;
+}
+#site-wide-stream blockquote p {
+	color:#565252;
+}
+#site-wide-stream p a {
+	color:#646060;
+	margin:0px 5px;
+}
+#activity-rss p {
+	text-align: right;
+	font-size: 0.9em;
+	margin: -20px 0 5px 0;
+}
+.profile #activity-rss p {
+	margin-top: 0;
+}
+#activity-rss p a {
+	background: url(../images/rss.png) center left no-repeat;
+	padding-left: 15px;
+}
+/*global forum filters*/
+div#global-forum-topic-filters {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	background: url(../images/item_list_back.gif) top left repeat-x;
+	min-height: 22px;
+	overflow: hidden;
+}
+div#global-forum-topic-filters li, #content-header li {
+	float: left;
+	margin-bottom: 5px;
+	background:url(../images/activity_btn_bg.gif) repeat-x;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-khtml-border-radius:5px;
+	border-radius: 5px;
+	height:25px;
+	margin:5px;
+}
+div#global-forum-topic-filters li a, #content-header li a {
+	display: block;
+	padding: 2px 8px 2px 30px;
+	margin: 0 5px 0 0;
+	text-decoration: none;
+	color:#4C5759;
+}
+div#global-forum-topic-filters li.selected a, #content-header li.current a {
+	font-weight: bold;
+}
+div#global-forum-topic-filters li#afilter-clear a {
+	border-color: #ffa6ac;
+	color: #ff5560;
+}
+/*for recently active widget*/
+.widget_bp_activity_widget span.time-since {
+	font-size: 11px;
+}
+.widget_bp_core_recently_active_widget div.item-avatar {
+	display: inline;
+	margin: 0 5px 5px 0;
+}
+/*for members widget*/
+	div#members-list-options {
+	float:right;
+	padding-right:10px;
+}
+ul#members-list {
+	clear:right;
+}
+div#members-list-options #newest-members {
+}
+div#members-list-options a {
+}
+div#members-list-options #recently-active-members {
+}
+div#members-list-options #popular-members {
+}
+/*for who is online widget*/
+
+	div.avatar-block {
+	padding:5px 0px;
+}
+div.avatar-block img.avatar {
+	float:left;
+}
+/*for item options*/
+	
+.item-options {
+	padding: 5px;
+	height: 15px;
+}
+.item-options a {
+	color:#424D50;
+} /* will need in next release*/
+.item-options a.selected {
+	font-weight:bold;
+}
+/*for recent poasts*/
+#recent-posts li {
+	clear:left;
+}
+.recent-tags a, .widget_tag_cloud a {
+	color:#306C74;
+	padding:5px;
+}
+/*specific styles*/		
+
+
+
+/*forInternal pages profile/groups/others*/
+/*common for internal pages*/
+.internal-page .box h2, .internal-page .box h3 {
+	margin-top:10px;
+	font-size:16px;
+	font-weight:bold;
+}
+.internal-page .box h3 {
+	font-size:14px;
+}
+/*for rss links*/
+h1.fn a.rss {
+	font-size:14px;
+}
+.internal-page #container {
+	margin-top:20px;
+	font-family:arial;
+}
+.internal-page h1.fn {
+	font-size:24px;
+	font-weight:normal;
+	line-height:28px;
+}
+.internal-page a {
+	text-decoration:none;
+}
+.internal-page a, .internal-page #container {
+	color:#434E51;
+}
+/*for center column*/
+/*for status updates*/
+.status-editable {
+	border:1px solid #ccc;
+	padding:5px;
+}
+#status-update-input {
+	width:98%;
+}
+#status-update-post, #status-update-post-cancel {
+	margin-top:5px;
+}
+#center-column #profile-name #user-status #status-clear-status {
+	color:#B364A2;
+	text-decoration:underline;
+}
+#center-column #profile-name #user-status, #center-column #profile-name #user-status a {
+	color:#515B5E;
+}
+/* end of status update css*/
+
+
+ 
+ #center-column #profile-name h1.fn a {
+	color:#4D4948;
+}
+/*for wire on profile page*/	
+#center-column li .wire-content {
+	width:405px;
+	float:left;
+}
+/* end of center column*/
+.internal-page .activity-list li blockquote {
+	margin-left:85px;
+}
+.box #wire-post-textarea {
+	height:100px;
+	width:80%;
+}
+/*for user's wire*/
+#right-column-wide .box #wire-post-textarea {
+	width:80%;
+	height:100px;
+}
+#right-column-wide #wire-post-list .item-avatar {
+	float:left;
+	height:64px;
+	width:64px;
+}
+#right-column-wide #wire-post-list .wire-author {
+	float:left;
+}
+#right-column-wide #wire-post-list .wire-author a {
+	font-weight:bold;
+}
+#right-column-wide #wire-post-list .wire-date-del {
+	float:right;
+}
+#right-column-wide #wire-post-list li {
+	margin-bottom:2px;
+	padding-bottom:3px;
+}
+#right-column-wide #wire-post-list li .wire-content {
+	float:left;
+	width:615px;
+}
+/*-----group Creation---------*/
+#previous-next {
+	margin-top:10px;
+}
+/* group admin*/
+input#save, input#submit {
+	margin-top:5px;
+}
+/*single forum view*/
+#forum-topic-list a.topic-title {
+	color:#02679C;
+	text-decoration:underline;
+}
+input#topic_title, textarea#topic_text, input#topic_tags, textarea#reply_text {
+	width:95%;
+}
+textarea#topic_text, textarea#reply_text {
+	min-height:200px;
+}
+h4.post-new-topic-reply {
+	float:right;
+}
+#global-forum-topic-list tr td, #global-forum-topic-list tr th {
+	padding:5px 10px;
+}
+/** gallery*/
+#cosmicbuddy .edit-media .edit-info input[type="text"], #cosmicbuddy .edit-gallery .edit-info input[type="text"], #cosmicbuddy .edit-media .edit-info textarea, #cosmicbuddy .edit-gallery .edit-info textarea {
+	margin-bottom:5px;
+	width:auto;
+}
+#cosmicbuddy .edit-info {
+	display:block;
+	float:left;
+}
+/*for unified search page*/
+body.search div.search-result {
+	margin-bottom:10px;
+}

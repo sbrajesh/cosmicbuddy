@@ -1,0 +1,53 @@
+/*  
+Theme Name: Cosmic Buddy
+Theme URI: http://buddydev.com
+Description: Convert your social Network to orkut Style Site, supported for Bp 1.2
+Version: 1.1 RC2 update 1
+Author: Brajesh Singh
+Author URI: http://buddydev.com/members/sbrajesh
+Tags: buddypress, widget ready
+*/
+
+/* Font styles */
+@import url( _inc/css/fonts/12px.css );
+
+
+/* Admin bar styles */
+@import url( _inc/css/adminbar.css );
+
+/* The main stylesheet*/
+@import url( _inc/css/screen.css );
+@import url( _inc/css/components.css);
+
+div.activity-comments form div.ac-reply-content {margin-left:46px;}
+div.activity-comments form.ac-form{margin-left:0px;}
+#whats-new-submit input ,.ac-reply-content input{background:url(_inc/images/white-grad.png) repeat;color:#424D50;border:1px solid #D4DFE8;-moz-border-radius:3px;padding:5px 8px;
+cursor:pointer;
+}
+.activity-list div.activity-meta a.acomment-reply,.activity-list div.activity-meta a {
+    background: #F5F5F5;
+    border:1px solid #D4DFE8;
+  color:#414C4F;
+    
+	padding:3px 8px;
+}
+
+.activity-list div.activity-meta a.acomment-reply:hover,.activity-list div.activity-meta a:hover{background:#414C4F;color: #FFFFFF;border:1px solid #D4DFE8;
+padding:3px 8px;}
+
+.activity-list li .activity-inreplyto{margin-left:50px;}
+
+div.activity-comments form .ac-textarea{border:none;}
+
+div.activity-comments > ul {border: 1px solid #DDDDDD;}
+div.activity-comments li form.ac-form{border: 1px solid #DDDDDD;}
+div.activity-comments ul li > ul {background:#fff;-moz-border-radius:5px;}
+div.activity-comments ul li { padding: 10px 15px;margin:0px;}
+.activity-list li.load-more {min-height:30px;margin: 0px; padding:0px;}
+
+.acomment-reply, .acomment-delete{
+background: none repeat scroll 0 0 #F5F5F5;
+    border: 1px solid #D4DFE8;
+    color: #414C4F;padding:2px 5px;-moz-border-radius:4px;}
+#container,#admins-list{padding-bottom:10px;}
+#content-header li span{padding:5px 10px;display:block;}

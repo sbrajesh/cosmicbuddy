@@ -1,0 +1,1 @@
+Support for branded login plugin
