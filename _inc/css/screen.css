@@ -1286,10 +1286,7 @@ div.activity-meta {
 	margin-right: 3px;
 }
 .activity-list div.activity-meta a.acomment-reply {
-	background: #FFF9DB;
-	border-bottom: 1px solid #FFE8C4;
-	border-right: 1px solid #FFE8C4;
-	color: #ffa200;
+	
 }
 div.activity-meta a:focus {
 	outline: none;
@@ -1316,7 +1313,7 @@ body.activity-permalink div.activity-comments {
 	background: none;
 }
 div.activity-comments > ul {
-	background: #f5f5f5;
+	/*background: #f5f5f5;*/
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
 }
@@ -1381,7 +1378,7 @@ div.activity-comments div.acomment-meta {
 div.activity-comments form.ac-form {
 	display: none;
 	margin: 10px 0 10px 33px;
-	background: #eee;
+	background: #F0F6F9;
 	border-bottom: 1px solid #ddd;
 	border-right: 1px solid #ddd;
 	-moz-border-radius: 4px;
