@@ -6,6 +6,7 @@ if ( !class_exists( 'BP_Core_User' ) )
 require_once( TEMPLATEPATH . '/_inc/ajax.php' );
 //include library for unified search
 include_once(TEMPLATEPATH."/lib/global-search.php");	
+include_once(TEMPLATEPATH."/lib/borrowed-bp-functions.php");	
 
 /* Load the javascript for the theme */
 if(!is_admin()){
