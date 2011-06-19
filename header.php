@@ -36,9 +36,11 @@
 					<a href="<?php echo get_option('home') ?>" title="<?php _e( 'Home', 'buddypress' ) ?>"><?php _e( 'Home', 'buddypress' ) ?>
 					</a>
 				</li>
-				
+				<?php if(get_page_by_title("Blog")):?>
 				<li<?php if ( is_page( 'blog' )||is_single()||is_search()||is_archive() ) : ?> class="selected"<?php endif; ?>><a href="<?php echo get_option('home') ?>/blog" title="<?php _e( 'Blog', 'buddypress' ) ?>"><?php _e( 'Blog', 'buddypress' ) ?></a></li>
-				 <?php if ( 'activity' != bp_dtheme_page_on_front() && bp_is_active( 'activity' ) ) : ?>
+				 
+                                <?php endif;?>
+                                <?php if ( 'activity' != bp_dtheme_page_on_front() && bp_is_active( 'activity' ) ) : ?>
 					<li<?php if ( bp_is_page( BP_ACTIVITY_SLUG ) ) : ?> class="selected"<?php endif; ?>>
 						<a href="<?php echo site_url() ?>/<?php echo BP_ACTIVITY_SLUG ?>/" title="<?php _e( 'Activity', 'buddypress' ) ?>"><?php _e( 'Activity', 'buddypress' ) ?></a>
 					</li>
