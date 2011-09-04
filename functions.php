@@ -371,4 +371,16 @@ function cb_get_sidebar($name){
        get_sidebar ($name);
 }
 
+//a work around for admin panel buddybar
+add_action('admin_print_styles','cb_fix_buddybar_position');
+
+function cb_fix_buddybar_position(){?>
+<style type="text/css">
+    div#wp-admin-bar{
+        position:fixed;
+    }
+</style>
+<?php    
+}
+        
 ?>
