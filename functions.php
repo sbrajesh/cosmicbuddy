@@ -216,12 +216,12 @@ function cb_include_login_box(){
 
 						<form name="login-form"  class="standard-form" action="<?php echo site_url('wp-login.php', 'login' );?>" method="post">
 							<label><?php _e( 'Username', 'cb' ) ?><br />
-							<input type="text" name="log" id="sidebar-user-login" class="input" value="<?php echo esc_attr(stripslashes($user_login)); ?>" /></label>
+                                                            <input type="text" name="log" id="sidebar-user-login" class="input" value="<?php echo esc_attr(stripslashes($user_login)); ?>" tabindex="1" /></label>
 							<br class="clear"/>
 							<label><?php _e( 'Password', 'cb' ) ?><br />
-							<input type="password" name="pwd" id="sidebar-user-pass" class="input" value="" /></label>
+                                                            <input type="password" name="pwd" id="sidebar-user-pass" class="input" value="" tabindex="2" /></label>
 							<br class="clear"/>	
-							<p class="forgetmenot"><label><input name="rememberme" type="checkbox" id="sidebar-rememberme" value="forever" /> <?php _e( 'Remember Me', 'cb' ) ?></label></p>
+                                                        <p class="forgetmenot"><label><input name="rememberme" type="checkbox" id="sidebar-rememberme" value="forever" tabindex="3"/> <?php _e( 'Remember Me', 'cb' ) ?></label></p>
 
 							<?php do_action( 'bp_sidebar_login_form' ) ?>
 							<br class="clear"/>
