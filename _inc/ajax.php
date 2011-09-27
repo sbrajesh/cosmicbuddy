@@ -179,25 +179,27 @@ function bp_dtheme_new_activity_comment() {
 		return false;
 	}
 
-	if ( bp_has_activities ( 'include=' . $comment_id ) ) : ?>
-		<?php while ( bp_activities() ) : bp_the_activity(); ?>
-			<li id="acomment-<?php bp_activity_id() ?>">
-				<div class="acomment-avatar">
-					<?php bp_activity_avatar( array( 'width' => 25, 'height' => 25 ) ) ?>
-				</div>
+	global $activities_template;
 
-				<div class="acomment-meta">
-					<?php echo bp_core_get_userlink( bp_get_activity_user_id() ) ?> &middot; <?php printf( __( '%s ago', 'buddypress' ), bp_core_time_since( gmdate( "Y-m-d H:i:s" ) ) ) ?> &middot;
-					<a class="acomment-reply" href="#acomment-<?php bp_activity_id() ?>" id="acomment-reply-<?php echo esc_attr( $_POST['form_id'] ) ?>"><?php _e( 'Reply', 'buddypress' ) ?></a>
-					 &middot; <a href="<?php echo wp_nonce_url( $bp->root_domain . '/' . $bp->activity->slug . '/delete/' . bp_get_activity_id() . '?cid=' . $comment_id, 'bp_activity_delete_link' ) ?>" class="delete acomment-delete confirm"><?php _e( 'Delete', 'buddypress' ) ?></a>
-				</div>
+	// Load the new activity item into the $activities_template global
+	bp_has_activities( 'display_comments=stream&include=' . $comment_id );
 
-				<div class="acomment-content">
-					<?php bp_activity_content_body() ?>
-				</div>
-			</li>
-		<?php endwhile; ?>
-	 <?php endif;
+	// Swap the current comment with the activity item we just loaded
+	$activities_template->activity->id              = $activities_template->activities[0]->item_id;
+	$activities_template->activity->current_comment = $activities_template->activities[0];
+
+	$template = locate_template( 'activity/comment.php', false, false );
+
+	// Backward compatibility. In older versions of BP, the markup was
+	// generated in the PHP instead of a template. This ensures that
+	// older themes (which are not children of bp-default and won't
+	// have the new template) will still work.
+	if ( empty( $template ) )
+		$template = BP_PLUGIN_DIR . '/bp-themes/bp-default/activity/comment.php';
+
+	load_template( $template, false );
+
+	unset( $activities_template );
 }
 add_action( 'wp_ajax_new_activity_comment', 'bp_dtheme_new_activity_comment' );
 

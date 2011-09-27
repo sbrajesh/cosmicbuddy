@@ -2,7 +2,7 @@
 <?php
 //based on the page show the logged in  user nav or displayed user nav
 global $bp;
-if(!bp_is_member())
+if(!bp_is_user())
 $user_id=$bp->loggedin_user->id;
 else
 $user_id=$bp->displayed_user->id;
@@ -18,7 +18,7 @@ echo bp_core_fetch_avatar( array( 'item_id' => $user_id, 'type' => 'full', 'widt
 
 <?php echo bp_core_get_userlink($user_id);?>
 </div>
-<?php if(bp_is_member()):?>
+<?php if(bp_is_user()):?>
 <div id="item-buttons">
 			<?php if ( function_exists( 'bp_add_friend_button' ) ) : ?>
 				<?php bp_add_friend_button($user_id) ?>
@@ -40,7 +40,7 @@ echo bp_core_fetch_avatar( array( 'item_id' => $user_id, 'type' => 'full', 'widt
 <div id="userbar">
 		<?php do_action( 'bp_inside_before_user_bar' ) ?>
 		<ul id="bp-nav">
-			<?php if(bp_is_member()&&!bp_is_home())
+			<?php if(bp_is_user()&&!bp_is_home())
 				bp_get_displayed_user_nav();
 			else
 			bp_get_loggedin_user_nav();

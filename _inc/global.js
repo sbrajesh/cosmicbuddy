@@ -427,8 +427,8 @@ j("#status-update-post-cncel").live('click', function(ev) {
 		var target = j(event.target);
 
 		/* Comment / comment reply links */
-		if ( target.attr('class') == 'acomment-reply' || target.parent().attr('class') == 'acomment-reply' ) {
-			if ( target.parent().attr('class') == 'acomment-reply' )
+		if ( target.hasClass('acomment-reply') || target.parent().hasClass('acomment-reply') ) {
+			if ( target.parent().hasClass('acomment-reply') )
 				target = target.parent();
           
 			var id = target.attr('id');
@@ -458,7 +458,7 @@ j("#status-update-post-cncel").live('click', function(ev) {
 				j('li#activity-' + a_id + ' div.activity-comments').append( form );
 			}
 
-	 		if ( form.parent().attr( 'class' ) == 'activity-comments' )
+	 		if ( form.parent().hasClass( 'activity-comments' ) )
 				form.addClass('root');
 			console.log("reached here");
 			form.slideDown( 200 );
@@ -474,7 +474,7 @@ j("#status-update-post-cncel").live('click', function(ev) {
 			var form_parent = form.parent();
 			var form_id = form.attr('id').split('-');
 
-			if ( 'activity-comments' !== form_parent.attr('class') ) {
+			if ( !form_parent.hasClass('activity-comments') ) {
 				var tmp_id = form_parent.attr('id').split('-');
 				var comment_id = tmp_id[1];
 			} else {
@@ -506,7 +506,7 @@ j("#status-update-post-cncel").live('click', function(ev) {
 					form.fadeOut( 200,
 						function() {
 							if ( 0 == form.parent().children('ul').length ) {
-								if ( form.parent().attr('class') == 'activity-comments' )
+								if ( form.parent().hasClass('activity-comments') )
 									form.parent().prepend('<ul></ul>');
 								else
 									form.parent().append('<ul></ul>');
