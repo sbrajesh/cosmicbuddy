@@ -4,9 +4,6 @@
  *
  * All of these functions enhance the responsiveness of the user interface in the default
  * theme by adding AJAX functionality.
- *
- * By default your child theme will inherit this AJAX functionality. You can however create
- * your own _inc/ajax.php file and add/remove AJAX functionality as you see fit.
  */
 
 /***
@@ -53,13 +50,34 @@ function bp_dtheme_ajax_querystring( $query_string, $object ) {
 	if ( !empty( $_POST['page'] ) && '-1' != $_POST['page'] )
 		$qs[] = 'page=' . $_POST['page'];
 
-	if ( !empty( $_POST['search_terms'] ) && __( 'Search anything...', 'buddypress' ) != $_POST['search_terms'] && 'false' != $_POST['search_terms'] && 'undefined' != $_POST['search_terms'] )
+	$object_search_text = bp_get_search_default_text( $object );
+ 	if ( !empty( $_POST['search_terms'] ) && $object_search_text != $_POST['search_terms'] && 'false' != $_POST['search_terms'] && 'undefined' != $_POST['search_terms'] )
 		$qs[] = 'search_terms=' . $_POST['search_terms'];
 
 	/* Now pass the querystring to override default values. */
 	$query_string = empty( $qs ) ? '' : join( '&', (array)$qs );
 
-	return apply_filters( 'bp_dtheme_ajax_querystring', $query_string, $object, $_BP_COOKIE['bp-' . $object . '-filter'], $_BP_COOKIE['bp-' . $object . '-scope'], $_BP_COOKIE['bp-' . $object . '-page'], $_BP_COOKIE['bp-' . $object . '-search-terms'], $_BP_COOKIE['bp-' . $object . '-extras'] );
+	$object_filter = '';
+	if ( isset( $_BP_COOKIE['bp-' . $object . '-filter'] ) )
+		$object_filter = $_BP_COOKIE['bp-' . $object . '-filter'];
+
+	$object_scope = '';
+	if ( isset( $_BP_COOKIE['bp-' . $object . '-scope'] ) )
+		$object_scope = $_BP_COOKIE['bp-' . $object . '-scope'];
+
+	$object_page = '';
+	if ( isset( $_BP_COOKIE['bp-' . $object . '-page'] ) )
+		$object_page = $_BP_COOKIE['bp-' . $object . '-page'];
+
+	$object_search_terms = '';
+	if ( isset( $_BP_COOKIE['bp-' . $object . '-search-terms'] ) )
+		$object_search_terms = $_BP_COOKIE['bp-' . $object . '-search-terms'];
+
+	$object_extras = '';
+	if ( isset( $_BP_COOKIE['bp-' . $object . '-extras'] ) )
+		$object_extras = $_BP_COOKIE['bp-' . $object . '-extras'];
+
+	return apply_filters( 'bp_dtheme_ajax_querystring', $query_string, $object, $object_filter, $object_scope, $object_page, $object_search_terms, $object_extras );
 }
 add_filter( 'bp_ajax_querystring', 'bp_dtheme_ajax_querystring', 10, 2 );
 

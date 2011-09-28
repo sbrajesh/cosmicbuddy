@@ -170,7 +170,7 @@ ul#top-nav-bar li.selected a {
 	width:100%;
 }
 #content {
-	width:675px;
+	width:689px;
 	float:left;
 }
 /*---------------for home slides--------------------------*/
@@ -215,7 +215,7 @@ div.box {
 #bottom-nav {
 	height:36px;
 	background:url(../images/footer_bg.gif) repeat-x;
-	width:946px;
+	width:966px;
 }
 #bottom-nav #bottom-nav-logo, #bottom-nav #bottom-nav-bar, #bottom-nav #credits, #bottom-nav #bottom-nav-bar li {
 	float:left;
@@ -859,7 +859,7 @@ h4.archive {
 #right-column-wide {
 	float:left;
 	margin-left:10px;
-	width:817px;
+	width:828px;
 }
 
 #right-column-wide .box {
