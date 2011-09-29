@@ -144,7 +144,8 @@
 											<?php if ( bp_is_group_creation_step( 'group-avatar' ) ) : ?>
 
 												<?php do_action( 'bp_before_group_avatar_creation_step' ); ?>
-
+												
+												<?php if ( 'upload-image' == bp_get_avatar_admin_step() ) : ?>
 												<div class="left-menu">
 													<?php bp_new_group_avatar() ?>
 												</div>
@@ -152,7 +153,7 @@
 												<div class="main-column">
 													<p><?php _e("Upload an image to use as an avatar for this group. The image will be shown on the main group page, and in search results.", 'buddypress') ?></p>
 											
-												<?php if ( !bp_get_avatar_admin_step() ) : ?>
+												
 											
 													<p>
 														<input type="file" name="file" id="file" /> 
@@ -160,7 +161,8 @@
 														<input type="hidden" name="action" id="action" value="bp_avatar_upload" />
 													</p>
 
-												<?php endif; ?>
+													<p><?php _e( 'To skip the avatar upload process, hit the "Next Step" button.', 'buddypress' ); ?></p>
+													<?php endif; ?>
 											
 												<?php if ( 'crop-image' == bp_get_avatar_admin_step() ) : ?>
 											
@@ -183,7 +185,6 @@
 
 												<?php endif; ?>
 												
-													<p><?php _e( 'To skip the avatar upload process, hit the "Next Step" button.', 'buddypress' ) ?></p>
 												</div>
 
 												<?php do_action( 'bp_after_group_avatar_creation_step' ); ?>

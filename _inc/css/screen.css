@@ -1252,7 +1252,7 @@ body.activity-permalink .activity-content .activity-inner, body.activity-permali
 }
 .activity-list li.load-more {
 	margin: 15px 0 !important;
-	padding: 10px 15px !important;
+	padding: 5px 15px !important;
 	background: #f0f0f0 !important;
 	text-align: center;
 	font-size: 1.2em;

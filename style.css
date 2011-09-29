@@ -41,7 +41,7 @@ div.activity-comments > ul {border: 1px solid #EFFAFF;/*#DDDDDD;*/}
 div.activity-comments li form.ac-form{/*border: 1px solid #DDDDDD;*/}
 div.activity-comments ul li > ul {background:#fff;-moz-border-radius:5px;}
 div.activity-comments ul li { padding: 10px 15px;margin:0px;}
-.activity-list li.load-more {min-height:30px;margin: 0px; padding:0px;}
+.activity-list li.load-more {min-height:10px;margin: 0px; padding:0px;}
 
 .acomment-reply, .acomment-delete{
 background: none repeat scroll 0 0 #F5F5F5;
