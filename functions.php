@@ -244,7 +244,7 @@ function cb_show_my_recent_visitor(){
    if(!function_exists("visitors_is_active_visitor_recording"))
    return;
 
-   if(!bp_is_home()||!visitors_is_active_visitor_recording($bp->displayed_user->id))//show only for logged in users and on their Home if they have set a prefence of showing it
+   if(!bp_is_my_profile()||!visitors_is_active_visitor_recording($bp->displayed_user->id))//show only for logged in users and on their Home if they have set a prefence of showing it
         return;
     $recent_visitors=visitors_get_recent_visitors();
    

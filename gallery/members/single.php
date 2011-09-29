@@ -11,7 +11,7 @@
 	
 		<?php if(bp_has_galleries()):?>
 			<?php while(bp_galleries()):bp_the_gallery() ;?>
-			<?php if ( bp_is_home()): ?>
+			<?php if ( bp_is_my_profile()): ?>
 				<div class="gallery-actions"><a href="<?php bp_gallery_edit_link();?>"> Edit This gallery</a>|<a href="<?php echo  bp_get_media_upload_link($gallery);?>" id="gallery_media_upload" <?php if( bp_is_gallery_upload()) echo "class='current'";?>> Upload</a><br /></div>
 			<?php endif;?>	
 				<?php 	locate_template( array( '/gallery/single/media/media-loop.php' ), true );?>

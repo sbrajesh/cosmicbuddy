@@ -40,7 +40,7 @@ echo bp_core_fetch_avatar( array( 'item_id' => $user_id, 'type' => 'full', 'widt
 <div id="userbar">
 		<?php do_action( 'bp_inside_before_user_bar' ) ?>
 		<ul id="bp-nav">
-			<?php if(bp_is_user()&&!bp_is_home())
+			<?php if(bp_is_user()&&!bp_is_my_profile())
 				bp_get_displayed_user_nav();
 			else
 			bp_get_loggedin_user_nav();

@@ -4,7 +4,7 @@
 	<?php do_action( 'bp_before_wire_post_list_form' ) ?>
 	
 	<?php if ( bp_has_wire_posts( 'item_id=' . bp_get_wire_item_id() . '&can_post=' . bp_wire_can_post() ) ) : ?>
-		<?php if(!(bp_is_user_profile()&&bp_is_home())):?>
+		<?php if(!(bp_is_user_profile()&&bp_is_my_profile())):?>
 		<?php bp_wire_get_post_form() ?>
 			<?php endif;?>
 <div class="box">
