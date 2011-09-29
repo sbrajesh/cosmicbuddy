@@ -50,3 +50,21 @@ background: none repeat scroll 0 0 #F5F5F5;
 #container,#admins-list{padding-bottom:10px;}
 #content-header li span{padding:5px 10px;display:block;}
 .main-column{margin-top:10px;}
+
+#messages-form table {
+	width:100%;
+	margin-top:10px;
+	}
+#messages-form table tr{
+	margin-bottom:10px;
+	display:block;
+	}
+	
+body.my-friends .item-list li{padding:15px 0px 5px 0px;}
+body.my-groups #group-search-form{margin-top:10px;}
+#group-settings-form .input input[type="text"]{width:65%;}
+#group-settings-form .input textarea{
+	width:64.4%;
+	height:100px;
+	}
+#group-settings-form h3,#group-settings-form h2,#group-settings-form #message,#send-invite-form .left-menu > h4{margin-bottom:10px;}

@@ -47,6 +47,7 @@
 							<div class='input'>
 							<input type="text" name="<?php bp_the_profile_field_input_name() ?>" id="<?php bp_the_profile_field_input_name() ?>" value="<?php bp_the_profile_field_edit_value() ?>" />
 							</div>
+							<br class="clear" />
 						<?php endif; ?>
 				
 						<?php if ( 'textarea' == bp_get_the_profile_field_type() ) : ?>
@@ -56,6 +57,7 @@
 							<div class='input'>
 							<textarea rows="5" cols="40" name="<?php bp_the_profile_field_input_name() ?>" id="<?php bp_the_profile_field_input_name() ?>"><?php bp_the_profile_field_edit_value() ?></textarea>
 							</div>
+							<br class="clear" />
 						<?php endif; ?>
 
 						<?php if ( 'selectbox' == bp_get_the_profile_field_type() ) : ?>
@@ -67,6 +69,7 @@
 								<?php bp_the_profile_field_options() ?>
 							</select>
 							</div>
+							<br class="clear" />
 						<?php endif; ?>
 
 						<?php if ( 'multiselectbox' == bp_get_the_profile_field_type() ) : ?>
@@ -78,6 +81,7 @@
 								<?php bp_the_profile_field_options() ?>
 							</select>
 							</div>
+							<br class="clear" />
 							
 						<?php endif; ?>
 
@@ -93,6 +97,7 @@
 									<a class="clear-value" href="javascript:clear( '<?php bp_the_profile_field_input_name() ?>' );"><?php _e( 'Clear', 'buddypress' ) ?></a>
 								<?php endif; ?>
 							</div>
+							<br class="clear" />
 					
 						<?php endif; ?>	
 				
@@ -104,7 +109,7 @@
 							
 								<?php bp_the_profile_field_options() ?>
 							</div>
-					
+							<br class="clear" />
 						<?php endif; ?>					
 
 						<?php if ( 'datebox' == bp_get_the_profile_field_type() ) : ?>
@@ -124,8 +129,9 @@
 								<select name="<?php bp_the_profile_field_input_name() ?>_year" id="<?php bp_the_profile_field_input_name() ?>_year">
 									<?php bp_the_profile_field_options( 'type=year' ) ?>
 								</select>
-							</div>								
-							</div>
+							</div>		
+							<br class="clear" />							
+							
 					
 						<?php endif; ?>	
 					

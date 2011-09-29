@@ -1469,7 +1469,6 @@ div.item-list-tabs#subnav ul li.last {
 	margin-top: 4px;
 }
 div.item-list-tabs ul li.last select {
-	float:right;
 	max-width: 175px;
 }
 div.item-list-tabs ul li a, div.item-list-tabs ul li span {

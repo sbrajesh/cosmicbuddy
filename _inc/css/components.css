@@ -22,9 +22,11 @@ ul.item-list li {
 	position: relative;
 	min-height: 65px;
 	border-bottom: 1px solid #F4F6FA;
-	padding-top: 15px;
+	padding-top: 8px;
+	padding-bottom:5px;
 	clear:left;/*for IE 6 bugs*/
 }
+ul.item-list li:last-child{border-bottom:none;}
 ul.item-list li div.item {
 }
 ul.item-list img.avatar {
