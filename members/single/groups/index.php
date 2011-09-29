@@ -28,7 +28,7 @@
 						<div class="main-column">
 							<?php do_action( 'template_notices' ) // (error/success feedback) ?>
 						
-							<?php locate_template( array( 'members/single/groups/group-loop.php' ), true ) ?>
+							<?php locate_template( array( 'groups/groups-loop.php' ), true ) ?>
 						</div>
 
 						<?php do_action( 'bp_after_my_groups_content' ) ?>
