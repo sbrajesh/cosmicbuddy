@@ -65,7 +65,6 @@ background-color:#E5EECC;
 div.forum-header-links  {
 	clear: left;
 	overflow: hidden;
-	margin: 25px -20px 20px -20px;
 	background: #eaeaea;
 }
 	div.forum-header-links  ul li a {
@@ -136,7 +135,6 @@ div.forum-header-links  {
 
 	div.forum-header-links #subnav {
 		background: #fff;
-		margin: -15px -20px 15px -20px;
 		border-bottom: 1px solid #eaeaea;
 		min-height: 35px;
 		overflow: hidden;
@@ -195,3 +193,12 @@ div.forum-header-links  {
 #users .column-name .avatar {margin-right:5px;}
 .navigation .displaying-num{margin:0px 5px;display:block;}
 .navigation a{padding: 5px;}
+.widget-content #forums-content #discussions h2,.widget-content #forums-content  h2{margin:10px 0px;}
+#option-forum-is-category .label{float:none;text-align:left;}
+#form-user-list .navigation{margin-bottom:10px;}
+
+#form-user-list .row-actions{margin-top:15px;width:186px;}
+#form-user-list .row-actions a{border-right:1px solid #000;padding-right:5px;}
+#form-user-list .row-actions a:last-child{border-right:none;}
+#form-user-list thead th{width:120px;}
+#form-user-list thead th:first-child{width:auto;}

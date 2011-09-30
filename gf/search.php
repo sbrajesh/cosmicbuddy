@@ -1,4 +1,9 @@
-<h2><?php _e(sprintf(__("Forum search for  \"%s \" ","gf"),$_GET['gfs']));?></h2>
+<h2><?php
+
+$search_term=$_GET['gfs'];
+if($search_term=='Search Forum...')
+    $search_term='';
+_e(sprintf(__("Forum search for  \"%s \" ","gf"),$search_term));?></h2>
 <?php if ( gf_has_forum_topics(  ) ) : ?>
 
 	
@@ -11,8 +16,8 @@
 					<th><?php _e("Topic","gf");?> </th>
 					<th><?php _e("Posts","gf");?></th>
 							<!-- <th>Voices</th> -->
-					<th><?php _e("Last Poster");?></th>
-					<th><?php _e("Freshness");?></th>
+					<th><?php _e("Last Poster","gf");?></th>
+					<th><?php _e("Freshness","gf");?></th>
 				</tr>
 				<?php while ( gf_forum_topics() ) : gf_the_forum_topic(); ?>
 						<tr class="<?php gf_the_topic_css_class() ?>">
@@ -46,7 +51,7 @@
 <?php else: ?>
 
 	<div id="message" class="info">
-		<p><?php _e( 'Sorry, there were no forum topics found.', 'buddypress' ) ?></p>
+		<p><?php _e( 'Sorry, there were no forum topics found.', 'gf' ) ?></p>
 	</div>
 
 <?php endif;?>

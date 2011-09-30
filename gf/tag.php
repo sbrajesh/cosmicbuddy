@@ -46,7 +46,7 @@
 <?php else: ?>
 
 	<div id="message" class="info">
-		<p><?php _e( 'Sorry, there were no forum topics found.', 'buddypress' ) ?></p>
+		<p><?php _e( 'Sorry, there were no forum topics found.', 'gf' ) ?></p>
 	</div>
 
 <?php endif;?>

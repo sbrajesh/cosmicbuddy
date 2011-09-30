@@ -1,10 +1,10 @@
-<?php if ( gf_has_forum_topic_posts() ) : ?>
+<?php if ( gf_has_topic_posts() ) : ?>
 
 	<form action="<?php gf_forum_topic_action() ?>" method="post" id="forum-topic-form" class="standard-form">
 
 		<div id="topic-meta">
 			<h3><?php gf_the_topic_title() ?> (<?php gf_the_topic_total_post_count() ?>)</h3>
-                        <a class="button" href="<?php gf_forum_permalink() ?>/">&larr; <?php _e( 'Back to Forum', 'buddypress' ) ?></a> &nbsp; <a class="button" href="<?php echo gf_get_current_topic_permalink() ?>/"><?php _e( 'Cancel', 'gf') ?></a></span>
+                        <a class="button" href="<?php gf_forum_permalink() ?>/">&larr; <?php _e( 'Back to Forum', 'gf' ) ?></a> &nbsp; <a class="button" href="<?php echo gf_get_current_topic_permalink() ?>/"><?php _e( 'Cancel', 'gf') ?></a></span>
 
 			<?php if ( gf_current_user_can_admin() || gf_current_user_can_mod() || gf_get_the_topic_is_mine() ) : ?>
 				<div class="admin-links"><?php gf_the_topic_admin_links() ?></div>

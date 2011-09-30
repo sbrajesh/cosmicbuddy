@@ -10,12 +10,12 @@
 					<th><?php _e("Topic","gf");?><?php if(gf_current_user_can_create_topic()):?>&mdash; <a class="new-topic" href="#new_form"><?php _e("Add New","gf");?> &raquo;</a><?php endif;?></th>
 					<th><?php _e("Posts","gf");?></th>
 							<!-- <th>Voices</th> -->
-					<th><?php _e("Last Poster");?></th>
-					<th><?php _e("Freshness");?></th>
+					<th><?php _e("Last Poster","gf");?></th>
+					<th><?php _e("Freshness","gf");?></th>
 				</tr>
 				<?php while ( gf_forum_topics() ) : gf_the_forum_topic(); ?>
 						<tr class="<?php gf_the_topic_css_class() ?>">
-							<td> <a class="topic-title" href="<?php gf_the_topic_permalink() ?>" title="<?php gf_the_topic_title() ?> - <?php _e( 'Permalink', 'buddypress' ) ?>"><?php gf_the_topic_title() ?></a></td>
+							<td> <a class="topic-title" href="<?php gf_the_topic_permalink() ?>" title="<?php gf_the_topic_title() ?> - <?php _e( 'Permalink', 'gf' ) ?>"><?php gf_the_topic_title() ?></a></td>
 							<td class="num"><?php gf_the_topic_total_posts() ?></td>
 							<!-- <td class="num">8</td> -->
 							<td class="last-poster"><a href="<?php gf_the_topic_permalink() ?>"><?php gf_the_topic_last_poster_avatar( 'type=thumb&width=20&height=20' ) ?></a>
@@ -45,7 +45,7 @@
 <?php else: ?>
 
 	<div id="message" class="info">
-		<p><?php _e( 'Sorry, there were no forum topics found.', 'buddypress' ) ?></p>
+		<p><?php _e( 'Sorry, there were no forum topics found.', 'gf' ) ?></p>
 	</div>
 
 <?php endif;?>

@@ -1,13 +1,25 @@
-<?php get_header();?>
-        <div id="container">
-            <div id="left-column">
-            <?php locate_template( array( 'userbar.php' ), true ) ?>
-            </div><!--end of left column -->
+<?php get_header() ?>
 
-            <div id="right-column-wide">
-				<?php //we need wire here //
-				?>
-			<?php do_action( 'template_notices' ) // (error/success feedback) ?>
+	<div id="content">
+		<div class="padder">
+
+			<?php do_action( 'bp_before_member_home_content' ) ?>
+
+			<div id="item-header">
+				<?php locate_template( array( 'members/single/member-header.php' ), true ) ?>
+			</div><!-- #item-header -->
+
+			<div id="item-nav">
+				<div class="item-list-tabs no-ajax" id="object-nav">
+					<ul>
+						<?php bp_get_displayed_user_nav() ?>
+
+						<?php do_action( 'bp_members_directory_member_types' ) ?>
+					</ul>
+				</div>
+			</div><!-- #item-nav -->
+
+			<div id="item-body">
 				<?php do_action( 'bp_before_member_body' ) ?>
 					
 				<?php
@@ -22,10 +34,13 @@
 
 				<?php do_action( 'bp_after_member_body' ) ?>
 
-			 </div> <!--end of right-column-wide -->
+			</div><!-- #item-body -->
 
-          
-             <br class="clear" />
-        </div>
-        <!--end of container -->
-       <?php get_footer();?>
+			<?php do_action( 'bp_after_member_home_content' ) ?>
+
+		</div><!-- .padder -->
+	</div><!-- #content -->
+
+	<?php locate_template( array( 'sidebar.php' ), true ) ?>
+
+<?php get_footer() ?>

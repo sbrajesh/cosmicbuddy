@@ -1,22 +1,8 @@
-<div class='box basics'>
-				 <div class='box-trc'>
-			  </div>
-			  <div class='box-content'>
-					<div id="profile-name">
-					<h1 class="fn"><?php bp_word_or_name( __( "Your Latest Flickr Photos", 'buddypress' ), __( "%s's Latest Flickr Photos", 'buddypress' ) ) ?></h1>
-						
-						
-					</div>
-			
-				
-            
-			<div class="content">
-			<div id="tabbed-subnav">
-			
-			<ul><?php locate_template( array( 'optionsbar.php' ), true ) ?></ul>
-			<br class='clear' />
-			</div>
-<div class="main-column">
+<div class="item-list-tabs no-ajax" id="subnav">
+	<ul>
+		<?php bp_get_options_nav() ?>
+	</ul>
+</div><!-- .item-list-tabs -->
 
 <?php do_action( 'bp_before_member_flickr_content' ) ?>
 <div class="flickr myflickr-settings">
@@ -46,15 +32,3 @@
 </div><!-- flickr -->
 
 <?php do_action( 'bp_after_member_flickr_content' ) ?>
-</div>
-		
-	</div><!--end of content-->
-	</div><!--end of box content -->
-	</div> <!-- end of box -->				
-   </div> <!--end of right-column-wide -->
-
-          
-             <br class="clear" />
-        </div>
-        <!--end of container -->
-       <?php get_footer();?>

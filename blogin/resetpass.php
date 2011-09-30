@@ -1,43 +1,44 @@
-<?php get_header(); ?>
-<div id="container">
-<div id="contents">
-<?php do_action( 'bp_before_branded_login' ) ?>
+<?php get_header() ?>
+
 	<div id="content">
-	<div class="widget">
-	<div class="widgettitle"><?php _e("Resetting Password!");?></div>
-		<div class="widget-content">
-			<?php do_action( 'template_notices' ) ?>
-                 <form name="lostpasswordform" id="lostpasswordform" action="<?php echo site_url('resetpass', 'login_post') ?>" method="post">
+		<div class="padder">
+
+		<?php do_action( 'bp_before_password_reset' );
+                $user_login='';
+                ?>
+
+		<div class="page" id="blog-latest">
+				<h3><?php _e("Resetting Password!",'bl');?></h3>
+			
+                         <?php do_action( 'template_notices' ) ?>
+                                <form name="lostpasswordform" id="lostpasswordform" action="<?php echo bl_get_reset_pass_link() ?>" method="post">
                           <p>
-                               <label><?php _e('Username or E-mail:') ?><br />
+                               <label><?php _e('Username or E-mail:','bl') ?><br />
                                  <input type="text" name="user_login" id="user_login" class="input" value="<?php echo esc_attr($user_login); ?>" size="20" tabindex="10" /></label>
                            </p>
                         <?php do_action('lostpassword_form'); ?>
-                                <p class="submit"><input type="submit" name="wp-submit" id="wp-submit" class="button-primary" value="<?php esc_attr_e('Get New Password'); ?>" tabindex="100" /></p>
+                                <p class="submit"><input type="submit" name="wp-submit" id="wp-submit" class="button-primary" value="<?php esc_attr_e('Get New Password','bl'); ?>" tabindex="100" /></p>
                         </form>
 
                         <p id="nav">
                         <?php if (get_option('users_can_register')) : ?>
-                            <a href="<?php echo site_url(BP_LOGIN_SLUG, 'login') ?>"><?php _e('Log in') ?></a> |
-                        <a href="<?php echo site_url(BP_REGISTER_SLUG, 'login') ?>"><?php _e('Register') ?></a>
+                            <a href="<?php echo bl_get_login_link() ?>"><?php _e('Log in','bl') ?></a> |
+                            <a href="<?php echo site_url(bp_get_signup_slug() . '/') ?>"><?php _e('Register','bl') ?></a>
                         <?php else : ?>
-                        <a href="<?php echo site_url(BP_LOGIN_SLUG, 'login') ?>"><?php _e('Log in') ?></a>
+                            <a href="<?php echo bl_get_login_link() ?>"><?php _e('Log in','bl') ?></a>
                         <?php endif; ?>
                         </p>
-					<script type="text/javascript">
-                        try{document.getElementById('user_login').focus();}catch(e){}
+			<script type="text/javascript">
+                            try{document.getElementById('user_login').focus();}catch(e){}
                         </script>
 
-			<br class="clear" />
 		</div>
-	
 
-	</div>
-	<?php do_action( 'bp_after_branded_login' ) ?>
-	</div>
-	<?php cb_get_sidebar("blogin");?>
-	<br class="clear" />
-</div>
-</div><!--end of container-->
-	
-<?php get_footer(); ?>
+		<?php do_action( 'bp_after_password_reset' ) ?>
+
+		</div><!-- .padder -->
+	</div><!-- #content -->
+
+	<?php locate_template( array( 'sidebar.php' ), true ) ?>
+
+<?php get_footer() ?>

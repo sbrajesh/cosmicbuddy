@@ -1,4 +1,3 @@
-
 <?php gf_admin_links();?>
 <?php
 if(gf_is_manage_forum())

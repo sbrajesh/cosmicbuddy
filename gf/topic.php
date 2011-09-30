@@ -1,8 +1,9 @@
-<?php if ( gf_has_forum_topic_posts() ) : ?>
+<?php if ( gf_has_topic_posts() ) : ?>
 	
-
+<div class="bcomb"><?php echo gf_get_forum_bread_crumb();?></div>
 		<div class="pagination no-ajax">
-
+                   
+                
 			<div id="post-count" class="pag-count">
 				<?php gf_the_topic_pagination_count() ?>
 			</div>
@@ -19,12 +20,12 @@
                          gf_show_add_tag_form();
                                                 ?>
 			<?php if ( gf_current_user_can_admin() || gf_current_user_can_mod() || gf_get_the_topic_is_mine() ) : ?>
-				<div class="admin-links"><?php gf_the_topic_admin_links() ?></div>
+				<div class="admin-links"><?php gf_the_topic_admin_links() ?> | <?php echo gf_get_add_remove_fav_link()?></div>
 			<?php endif; ?>
 		</div>
 
 		<ul id="topic-post-list" class="item-list">
-			<?php while ( gf_forum_topic_posts() ) : gf_the_forum_topic_post(); ?>
+			<?php while ( gf_topic_posts() ) : gf_the_topic_post(); ?>
 
 				<li id="post-<?php gf_the_topic_post_id() ?>">
 					<div class="poster-meta">
