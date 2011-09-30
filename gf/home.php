@@ -59,5 +59,6 @@
 	</div><!-- #contents -->
 
 	<?php locate_template( array( 'sidebar.php' ), true ) ?>
+	<br class="clear"/>
 </div><!--end of container-->
 <?php get_footer() ?>
