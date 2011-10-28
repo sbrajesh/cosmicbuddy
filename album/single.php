@@ -12,7 +12,9 @@
 				
 							<div id="tabbed-subnav">
 						
-								<?php locate_template( array( 'optionsbar.php' ), true ) ?>
+								<ul>
+								<?php bp_get_options_nav() ?>
+							</ul>
 								<br class='clear' />
 							</div>
 							<?php if (bp_album_has_pictures() ) : bp_album_the_picture();?>
