@@ -1,161 +1,166 @@
-<?php get_header();?>
-        <div id="container">
-		
-			<?php do_action( 'template_notices' ) // (error/success feedback) ?>
-		
-		<?php if ( bp_has_groups() ) : while ( bp_groups() ) : bp_the_group(); ?>
+<?php do_action( 'bp_before_group_forum_topic' ); ?>
 
-			<?php do_action( 'bp_before_group_content' ) ?>
+<?php if ( bp_has_forum_topic_posts() ) : ?>
 
-			   <div id="left-column">
-					<?php locate_template( array( 'groups/group-menu.php' ), true ) ?>
-			   </div><!--end of left column -->
+	<form action="<?php bp_forum_topic_action() ?>" method="post" id="forum-topic-form" class="standard-form">
 
-			<div id="right-column-wide">
-			<?php if ( bp_has_forum_topic_posts() ) : ?>
-				 <!-- group profile section -->
-				 <div class='box basics'>
-			 		<div class='box-content'>
+		<div class="item-list-tabs no-ajax" id="subnav" role="navigation">
+			<ul>
+				<?php if ( is_user_logged_in() ) : ?>
 
-						<div id="profile-name">
-								<?php do_action( 'bp_before_group_name' ) ?>
-								<h1 class="fn"><a href="<?php bp_group_permalink() ?>" title="<?php bp_group_name() ?>"><?php bp_group_name() ?></a> <a href="<?php bp_forum_permalink() ?>">&larr; <?php _e( 'Forum', 'buddypress' ); ?></a></h1>
-								<?php do_action( 'bp_after_group_name' ) ?>
-								<!-- for breadcrumb-->
-						</div>
-						<div class="pagination">
+					<li>
+						<a href="<?php bp_forum_topic_new_reply_link() ?>" class="new-reply-link"><?php _e( 'New Reply', 'buddypress' ) ?></a>
+					</li>
 
-						<div id="post-count" class="pag-count">
-							<?php bp_the_topic_pagination_count() ?>
-						</div>
-				
-						<div class="pagination-links" id="topic-pag">
-							<?php bp_the_topic_pagination() ?>
-						</div>
-					
+				<?php endif; ?>
+
+				<?php if ( bp_forums_has_directory() ) : ?>
+
+					<li>
+						<a href="<?php bp_forums_directory_permalink() ?>"><?php _e( 'Forum Directory', 'buddypress') ?></a>
+					</li>
+
+				<?php endif; ?>
+
+			</ul>
+		</div>
+
+		<div id="topic-meta">
+			<h3><?php bp_the_topic_title() ?> (<?php bp_the_topic_total_post_count() ?>)</h3>
+
+			<?php if ( bp_forum_topic_has_tags() ) : ?>
+
+				<div class="topic-tags">
+
+					<?php _e( 'Topic tags:', 'buddypress' ) ?> <?php bp_forum_topic_tag_list() ?>
+
+				</div>
+
+			<?php endif; ?>
+
+			<?php if ( bp_group_is_admin() || bp_group_is_mod() || bp_get_the_topic_is_mine() ) : ?>
+
+				<div class="last admin-links">
+
+					<?php bp_the_topic_admin_links() ?>
+
+				</div>
+
+			<?php endif; ?>
+
+			<?php do_action( 'bp_group_forum_topic_meta' ); ?>
+
+		</div>
+
+		<div class="pagination no-ajax">
+
+			<div id="post-count-top" class="pag-count">
+
+				<?php bp_the_topic_pagination_count() ?>
+
+			</div>
+
+			<div class="pagination-links" id="topic-pag-top">
+
+				<?php bp_the_topic_pagination() ?>
+
+			</div>
+
+		</div>
+
+		<?php do_action( 'bp_before_group_forum_topic_posts' ) ?>
+
+		<ul id="topic-post-list" class="item-list" role="main">
+			<?php while ( bp_forum_topic_posts() ) : bp_the_forum_topic_post(); ?>
+
+				<li id="post-<?php bp_the_topic_post_id() ?>" class="<?php bp_the_topic_post_css_class() ?>">
+					<div class="poster-meta">
+						<a href="<?php bp_the_topic_post_poster_link() ?>">
+							<?php bp_the_topic_post_poster_avatar( 'width=40&height=40' ) ?>
+						</a>
+						<?php echo sprintf( __( '%1$s said %2$s:', 'buddypress' ), bp_get_the_topic_post_poster_name(), bp_get_the_topic_post_time_since() ) ?>
 					</div>
-					</div>
-				</div><!-- end of group profile -->
-				
-				<form action="<?php bp_forum_topic_action() ?>" method="post" id="forum-topic-form" class="standard-form">
-								
-				<div class="box">
-					<div class="box-content">
-						<div class="bp-widget">
-							<ul>
-					<li id="topic-meta">
-							
-							<h3><?php bp_the_topic_title() ?> (<?php bp_the_topic_total_post_count() ?>)</h3>
-							
-							<?php if ( bp_group_is_admin() || bp_group_is_mod() || bp_get_the_topic_is_mine() ) : ?>
-								<div class="admin-links"><?php bp_the_topic_admin_links() ?></div>
-							<?php endif; ?>
-							
-						</li>
-						</ul>
-						<br class="clear" />
-						<span class="small"><a href="<?php bp_forum_permalink() ?>">&larr; <?php _e( 'Group Forum', 'buddypress' ) ?></a> | <a href="<?php bp_forum_directory_permalink() ?>"><?php _e( 'Forum Topic Directory', 'buddypress') ?></a></span>
-					<?php if ( is_user_logged_in() ) : ?>
-					<h4 class="post-new-topic-reply"> <span><a href="#post-topic-reply" title="<?php _e( 'Post New', 'buddypress' ) ?>"><?php _e( 'Post Reply &rarr;', 'buddypress' ) ?></a></span></h4>
-					<br class="clear" />
-					<?php endif; ?>
-					
-					
-					</div>
-					</div>
-					</div>
-					<div class="box">
-					<div class="box-content">
-						<div class="bp-widget">
-					<ul id="topic-post-list" class="item-list">
-						
-						
-					<?php while ( bp_forum_topic_posts() ) : bp_the_forum_topic_post(); ?>
-						
-						<li id="post-<?php bp_the_topic_post_id() ?>">
-							<div class="poster-meta">
-								<?php bp_the_topic_post_poster_avatar() ?>
-								<?php echo sprintf( __( '%s said %s ago:', 'buddypress' ), bp_the_topic_post_poster_name( false ), bp_get_the_topic_post_time_since( false ) ) ?>
-							</div>
-					
-							<div class="post-content">
-								<?php bp_the_topic_post_content() ?>
-							</div>
-							
-							<?php if ( bp_group_is_admin() || bp_group_is_mod() || bp_get_the_topic_post_is_mine() ) : ?>
-								<div class="admin-links"><?php bp_the_topic_post_admin_links() ?></div>
-							<?php endif; ?>
-						</li>
-						
-					<?php endwhile; ?>
-					
-					</ul>
-					
-					<?php if ( ( is_user_logged_in() && 'public' == bp_get_group_status() ) || bp_group_is_member() ) : ?>
-											
-						<?php if ( bp_get_the_topic_is_topic_open() ) : ?>
-							
-							<div id="post-topic-reply">	
-								<a name="post-reply"></a>
 
-								<?php if ( !bp_group_is_member() ) : ?>
-									<p><?php _e( 'You will auto join this group when you reply to this topic.', 'buddypress' ) ?></p>
-								<?php endif; ?>
-							
-								<?php do_action( 'groups_forum_new_reply_before' ) ?>
-						
-								<p><strong><?php _e( 'Add a reply:', 'buddypress' ) ?></strong></p>
-																
-								<textarea name="reply_text" id="reply_text"></textarea>
-					
-								<p class="submit"><input type="submit" name="submit_reply" id="submit" value="<?php _e( 'Post Reply', 'buddypress' ) ?>" /></p>
+					<div class="post-content">
+						<?php bp_the_topic_post_content() ?>
+					</div>
 
-								<?php do_action( 'groups_forum_new_reply_after' ) ?>
-
-								<?php wp_nonce_field( 'bp_forums_new_reply' ) ?>
-							</div>
-							
-						<?php else : ?>
-							
-							<div id="message" class="info">
-								<p><?php _e( 'This topic is closed, replies are no longer accepted.', 'buddypress' ) ?></p>
-							</div>
-							
+					<div class="admin-links">
+						<?php if ( bp_group_is_admin() || bp_group_is_mod() || bp_get_the_topic_post_is_mine() ) : ?>
+							<?php bp_the_topic_post_admin_links() ?>
 						<?php endif; ?>
-					
-					<?php endif; ?>
-					
-				
-				
-			</div>
-						
+
+						<?php do_action( 'bp_group_forum_post_meta' ); ?>
+
+						<a href="#post-<?php bp_the_topic_post_id() ?>" title="<?php _e( 'Permanent link to this post', 'buddypress' ) ?>">#</a>
 					</div>
-				</div>
-				</form>	
-			<?php else: ?>
-					<div class="box">
-					<div class="box-content">
+				</li>
+
+			<?php endwhile; ?>
+		</ul><!-- #topic-post-list -->
+
+		<?php do_action( 'bp_after_group_forum_topic_posts' ) ?>
+
+		<div class="pagination no-ajax">
+
+			<div id="post-count-bottom" class="pag-count">
+				<?php bp_the_topic_pagination_count() ?>
+			</div>
+
+			<div class="pagination-links" id="topic-pag-bottom">
+				<?php bp_the_topic_pagination() ?>
+			</div>
+
+		</div>
+
+		<?php if ( ( is_user_logged_in() && 'public' == bp_get_group_status() ) || bp_group_is_member() ) : ?>
+
+			<?php if ( bp_get_the_topic_is_last_page() ) : ?>
+
+				<?php if ( bp_get_the_topic_is_topic_open() && !bp_group_is_user_banned() ) : ?>
+
+					<div id="post-topic-reply">
+						<p id="post-reply"></p>
+
+						<?php if ( bp_groups_auto_join() && !bp_group_is_member() ) : ?>
+							<p><?php _e( 'You will auto join this group when you reply to this topic.', 'buddypress' ) ?></p>
+						<?php endif; ?>
+
+						<?php do_action( 'groups_forum_new_reply_before' ) ?>
+
+						<h4><?php _e( 'Add a reply:', 'buddypress' ) ?></h4>
+
+						<textarea name="reply_text" id="reply_text"></textarea>
+
+						<div class="submit">
+							<input type="submit" name="submit_reply" id="submit" value="<?php _e( 'Post Reply', 'buddypress' ) ?>" />
+						</div>
+
+						<?php do_action( 'groups_forum_new_reply_after' ) ?>
+
+						<?php wp_nonce_field( 'bp_forums_new_reply' ) ?>
+					</div>
+
+				<?php elseif ( !bp_group_is_user_banned() ) : ?>
+
 					<div id="message" class="info">
-						<p><?php _e( 'There are no posts for this topic.', 'buddypress' ) ?></p>
+						<p><?php _e( 'This topic is closed, replies are no longer accepted.', 'buddypress' ) ?></p>
 					</div>
-				</div>
-				</div>
-				<?php endif;?>		
-					
 
-				</div><!-- end of center column -->
-		 
+				<?php endif; ?>
 
-			<?php do_action( 'bp_after_group_content' ) ?>
+			<?php endif; ?>
 
-		<?php endwhile; else: ?>
+		<?php endif; ?>
 
-			<div id="message" class="error">
-				<p><?php _e("Sorry, the group does not exist.", "buddypress"); ?></p>
-			</div>
+	</form><!-- #forum-topic-form -->
 
-		<?php endif;?>
-			<br class="clear" />
-        </div>
-        <!--end of container -->
-       <?php get_footer();?>
+<?php else: ?>
+
+	<div id="message" class="info">
+		<p><?php _e( 'There are no posts for this topic.', 'buddypress' ) ?></p>
+	</div>
+
+<?php endif;?>
+
+<?php do_action( 'bp_after_group_forum_topic' ) ?>

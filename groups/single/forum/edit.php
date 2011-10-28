@@ -1,132 +1,96 @@
-<?php get_header();?>
-        <div id="container">
-		
-			<?php do_action( 'template_notices' ) // (error/success feedback) ?>
-		
-		<?php if ( bp_has_groups() ) : while ( bp_groups() ) : bp_the_group(); ?>
+<?php do_action( 'bp_before_group_forum_edit_form' ); ?>
 
-			<?php do_action( 'bp_before_group_content' ) ?>
+<?php if ( bp_has_forum_topic_posts() ) : ?>
 
-			   <div id="left-column">
-				<?php locate_template( array( 'groups/group-menu.php' ), true ) ?>
-            </div><!--end of left column -->
+	<form action="<?php bp_forum_topic_action(); ?>" method="post" id="forum-topic-form" class="standard-form">
 
-			<div id="right-column-wide">
-				 <!-- group profile section -->
-				 <div class='box basics'>
-			 		<div class='box-content'>
+		<div class="item-list-tabs" id="subnav" role="navigation">
+			<ul>
+				<li>
+					<a href="#post-topic-reply"><?php _e( 'Reply', 'buddypress' ); ?></a>
+				</li>
 
-						<div id="profile-name">
-								<?php do_action( 'bp_before_group_name' ) ?>
-								<h1 class="fn"><a href="<?php bp_group_permalink() ?>" title="<?php bp_group_name() ?>"><?php bp_group_name() ?></a></h1>
-								<?php do_action( 'bp_after_group_name' ) ?>
-								<!--for  breadcrumb -->
-						</div>
-						
-					</div>
-				</div><!-- end of group profile -->
-									
-				<div class="box">
-					<div class="box-content">
-						<div class="bp-widget">
-				<?php if ( bp_has_forum_topic_posts() ) : ?>
-				<form action="<?php bp_forum_topic_action() ?>" method="post" id="forum-topic-form" class="standard-form">
-			
-					<h4><?php _e( 'Forum', 'buddypress' ); ?></h4>
-				
-					<ul id="topic-post-list" class="item-list">
-						<li id="topic-meta">
-							<a href="<?php bp_forum_permalink() ?>"><?php _e( 'Forum', 'buddypress') ?></a> &raquo; 
-							<strong><?php bp_the_topic_title() ?> (<?php bp_the_topic_total_post_count() ?>)</strong>
-						</li>
-					</ul>
-					
-					<?php if ( bp_group_is_member() ) : ?>
-						
-						<?php if ( bp_is_edit_topic() ) : ?>
-							
-							<div id="edit-topic">
+				<?php if ( bp_forums_has_directory() ) : ?>
 
-								<?php do_action( 'groups_forum_edit_topic_before' ) ?>
-							
-								<h4><?php _e( 'Edit Topic:', 'buddypress' ) ?></h4>
-								<div class="editfield">
-									<div class="label">
-										<label for="topic_title"><?php _e( 'Title:', 'buddypress' ) ?></label>
-									</div>
-									<div class="input">
-										<input type="text" name="topic_title" id="topic_title" value="<?php bp_the_topic_title() ?>" />
-									</div>
-									<br class="clear">
-								</div>
-								<div class="editfield alt">
-									<div class="label">
-										<label for="topic_text"><?php _e( 'Content:', 'buddypress' ) ?></label>
-									</div>
-									<div class="input">
-										<textarea name="topic_text" id="topic_text"><?php bp_the_topic_text() ?></textarea>
-									</div>
-									<br class="clear" />
-								</div>	
-								<?php do_action( 'groups_forum_edit_topic_after' ) ?>
-					
-								<p class="submit"><input type="submit" name="save_changes" id="save_changes" value="<?php _e( 'Save Changes', 'buddypress' ) ?>" /></p>
-							
-								<?php wp_nonce_field( 'bp_forums_edit_topic' ) ?>
-							
-							</div>
-							
-						<?php else : ?>
-							
-							<div id="edit-post">
+					<li>
+						<a href="<?php bp_forums_directory_permalink(); ?>"><?php _e( 'Forum Directory', 'buddypress'); ?></a>
+					</li>
 
-								<?php do_action( 'groups_forum_edit_post_before' ) ?>
-							
-								<h4><?php _e( 'Edit Post:', 'buddypress' ) ?></h4>
+				<?php endif; ?>
 
-								<textarea name="post_text" id="post_text"><?php bp_the_topic_post_edit_text() ?></textarea>
-		
-								<?php do_action( 'groups_forum_edit_post_after' ) ?>
-					
-								<p class="submit"><input type="submit" name="save_changes" id="save_changes" value="<?php _e( 'Save Changes', 'buddypress' ) ?>" /></p>
-							
-								<?php wp_nonce_field( 'bp_forums_edit_post' ) ?>
-							
-							</div>
-							
-						<?php endif; ?>
-					
-					<?php endif; ?>
-					
-				</form>	
-				<?php else: ?>
+			</ul>
+		</div>
 
-					<div id="message" class="info">
-						<p><?php _e( 'This topic does not exist.', 'buddypress' ) ?></p>
-					</div>
+		<div id="topic-meta">
+			<h3><?php _e( 'Edit:', 'buddypress' ); ?> <?php bp_the_topic_title(); ?> (<?php bp_the_topic_total_post_count(); ?>)</h3>
 
-				<?php endif;?>
+			<?php if ( bp_group_is_admin() || bp_group_is_mod() || bp_get_the_topic_is_mine() ) : ?>
 
-			</div>
-					</div>
+				<div class="last admin-links">
+
+					<?php bp_the_topic_admin_links(); ?>
+
 				</div>
-					
-					
-					
 
-				</div><!-- end of center column -->
-		 
+			<?php endif; ?>
 
-			<?php do_action( 'bp_after_group_content' ) ?>
+			<?php do_action( 'bp_group_forum_topic_meta' ); ?>
 
-		<?php endwhile; else: ?>
+		</div>
 
-			<div id="message" class="error">
-				<p><?php _e("Sorry, the group does not exist.", "buddypress"); ?></p>
-			</div>
+		<?php if ( bp_group_is_member() ) : ?>
 
-		<?php endif;?>
-			<br class="clear" />
-        </div>
-        <!--end of container -->
-       <?php get_footer();?>
+			<?php if ( bp_is_edit_topic() ) : ?>
+
+				<div id="edit-topic">
+
+					<?php do_action( 'bp_group_before_edit_forum_topic' ); ?>
+
+					<label for="topic_title"><?php _e( 'Title:', 'buddypress' ); ?></label>
+					<input type="text" name="topic_title" id="topic_title" value="<?php bp_the_topic_title(); ?>" />
+
+					<label for="topic_text"><?php _e( 'Content:', 'buddypress' ); ?></label>
+					<textarea name="topic_text" id="topic_text"><?php bp_the_topic_text(); ?></textarea>
+
+					<label><?php _e( 'Tags (comma separated):', 'buddypress' ) ?></label>
+					<input type="text" name="topic_tags" id="topic_tags" value="<?php bp_forum_topic_tag_list() ?>" />
+
+					<?php do_action( 'bp_group_after_edit_forum_topic' ); ?>
+
+					<p class="submit"><input type="submit" name="save_changes" id="save_changes" value="<?php _e( 'Save Changes', 'buddypress' ); ?>" /></p>
+
+					<?php wp_nonce_field( 'bp_forums_edit_topic' ); ?>
+
+				</div>
+
+			<?php else : ?>
+
+				<div id="edit-post">
+
+					<?php do_action( 'bp_group_before_edit_forum_post' ); ?>
+
+					<textarea name="post_text" id="post_text"><?php bp_the_topic_post_edit_text(); ?></textarea>
+
+					<?php do_action( 'bp_group_after_edit_forum_post' ) ?>
+
+					<p class="submit"><input type="submit" name="save_changes" id="save_changes" value="<?php _e( 'Save Changes', 'buddypress' ); ?>" /></p>
+
+					<?php wp_nonce_field( 'bp_forums_edit_post' ); ?>
+
+				</div>
+
+			<?php endif; ?>
+
+		<?php endif; ?>
+
+	</form><!-- #forum-topic-form -->
+
+<?php else: ?>
+
+	<div id="message" class="info">
+		<p><?php _e( 'This topic does not exist.', 'buddypress' ); ?></p>
+	</div>
+
+<?php endif;?>
+
+<?php do_action( 'bp_after_group_forum_edit_form' ); ?>

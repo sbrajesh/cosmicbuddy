@@ -471,3 +471,11 @@ body.search div.search-result {
 
 .sendgift-panel ul li{float:left;}
 .box-content #message{margin-top:10px;}
+
+/*for forums component */
+#new-topic-post{background:#fff;padding:10px 14px;width:641px;border:1px solid #E9EBEC;}
+#forums-dir-list .pagination{margin:10px 0px;}
+#th-postcount{width:80px;}
+table.forum  tbody tr th#th-title{width:300px;}
+.poster-name{margin-bottom:10px ;}
+table.forum tbody tr{margin-bottom:10px;}
