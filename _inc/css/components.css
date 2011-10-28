@@ -466,4 +466,8 @@ body.search div.search-result {
 .picture-gallery{margin:10px 0px;}
 .picture-meta a{background:#EFF3F5;border:1px solid #E4EAEF;padding:3px 5px;margin-right:8px;}
 .picture-single ul li .activity-content{margin-left:0px;}
-	
+
+/* for buddypress gifts */
+
+.sendgift-panel ul li{float:left;}
+.box-content #message{margin-top:10px;}
