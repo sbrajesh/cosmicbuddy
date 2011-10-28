@@ -382,5 +382,23 @@ function cb_fix_buddybar_position(){?>
 </style>
 <?php    
 }
+
+function cb_friends_filter_content() {
+	$current_filter = bp_action_variable( 0 );
+
+	switch ( $current_filter ) {
+		case 'recently-active': default:
+			
+			 locate_template( array( 'members/single/friends/active-friends.php' ), true );
+			 
+			break;
+		case 'newest':
+			_e( 'Newest', 'buddypress' );
+			break;
+		case 'alphabetically':
+			_e( 'Alphabetically', 'buddypress' );
+			break;
+	}
+}
         
 ?>

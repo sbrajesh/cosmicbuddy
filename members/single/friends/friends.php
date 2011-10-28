@@ -41,7 +41,7 @@
 		
 								<?php do_action( 'template_notices' ) // (error/success feedback) ?>
 		
-								<?php locate_template( array( 'members/single/friends/friends-loop.php' ), true ) ?>
+								<?php cb_friends_filter_content()  ?>
 		
 
 								<?php do_action( 'bp_after_my_friends_content' ) ?>	

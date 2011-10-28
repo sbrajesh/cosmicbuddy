@@ -455,3 +455,15 @@ h4.post-new-topic-reply {
 body.search div.search-result {
 	margin-bottom:10px;
 }
+
+/* for bp-album plugin */
+.content h4{
+	margin:10px 0px;
+	}
+#bp-album-upload-form input#file{
+	margin:10px 0px;
+	}
+.picture-gallery{margin:10px 0px;}
+.picture-meta a{background:#EFF3F5;border:1px solid #E4EAEF;padding:3px 5px;margin-right:8px;}
+.picture-single ul li .activity-content{margin-left:0px;}
+	
