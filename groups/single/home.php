@@ -11,7 +11,7 @@
 	<?php elseif ( bp_is_group_invites() && bp_group_is_visible($group) ) : ?>
 					<?php locate_template( array( 'groups/single/send-invites.php' ), true ) ?>
 	<?php elseif ( bp_is_group_forum() && bp_group_is_visible($group) ) : ?>
-					<?php locate_template( array( 'groups/single/forum/index.php' ), true ) ?>
+					<?php locate_template( array( 'groups/single/forum.php' ), true ) ?>
 	<?php elseif ( bp_is_group_membership_request() ) : ?>
 					<?php locate_template( array( 'groups/single/request-membership.php' ), true ) ?>
 	<?php elseif ( bp_group_is_visible($group) && bp_is_group_home()):?>

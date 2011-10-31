@@ -474,8 +474,40 @@ body.search div.search-result {
 
 /*for forums component */
 #new-topic-post{background:#fff;padding:10px 14px;width:641px;border:1px solid #E9EBEC;}
-#forums-dir-list .pagination{margin:10px 0px;}
-#th-postcount{width:80px;}
-table.forum  tbody tr th#th-title{width:300px;}
-.poster-name{margin-bottom:10px ;}
-table.forum tbody tr{margin-bottom:10px;}
+
+.pagination {
+    margin: 10px 0;
+    padding: 7px 0;
+}
+.pag-count {
+    float: left;
+    height: 16px;
+}
+table.forum th#th-title {
+    width: 40%;
+}
+table tr td, table tr th {
+    padding: 8px;
+    vertical-align: middle;
+}
+table.forum th#th-postcount {
+    width: 1%;
+}
+table.forum tr > td:last-child, table.forum tr > th:last-child {
+    padding-right: 15px;
+}
+table.forum td.td-poster, table.forum td.td-group {
+    min-width: 130px;
+}
+table.forum td img.avatar {
+    float: left;
+    margin-right: 5px;
+}
+table.forum td {
+    text-align: center;
+}
+table.forum tr th#th-title, table.forum tr th#th-poster, table.forum tr th#th-group, table.forum td.td-poster, table.forum td.td-group, table.forum td.td-title {
+    text-align: left;
+}
+.admin-links {margin:10px 0;}
+#message, .info p{margin-bottom:10px;}

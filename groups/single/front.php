@@ -7,9 +7,9 @@
 
 			<?php do_action( 'bp_before_group_content' ) ?>
 
-			   <div id="left-column">
+				<div id="left-column">
 				<?php locate_template( array( 'groups/group-menu.php' ), true ) ?>
-            </div><!--end of left column -->
+				</div><!--end of left column -->
 
 			<div id="center-column">
 				 <!-- group profile section -->
