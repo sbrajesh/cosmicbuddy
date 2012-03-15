@@ -2,35 +2,164 @@
 /* Stop the theme from killing WordPress if BuddyPress is not enabled. */
 if ( !class_exists( 'BP_Core_User' ) )
 	return false;
-/* Load the AJAX functions for the theme */
-require_once( TEMPLATEPATH . '/_inc/ajax.php' );
-//include library for unified search
-include_once(TEMPLATEPATH."/lib/global-search.php");	
-include_once(TEMPLATEPATH."/lib/borrowed-bp-functions.php");	
 
-/* Load the javascript for the theme */
-if(!is_admin()){
-    if(apply_filters("cb_has_overlayed_login",true))
-	wp_enqueue_script( 'jquerytools', get_template_directory_uri() . '/_inc/jquery.tools.min.js', array( 'jquery') );
-    wp_enqueue_script( 'dtheme-ajax-js', get_template_directory_uri() . '/_inc/global.js', array( 'jquery') );
+class CosmicBuddyThemeHelper{
+    private static $instance;
+    
+    private function __construct(){
+        $this->include_files();//or you can call $this->include_files just makes no difference
+        add_action('wp_enqueue_scripts',array($this,'load_js'));
+       
+        //a work around for admin panel buddybar
+        add_action('admin_print_styles',array($this,'fix_buddybar_position'));
+        
+        //register widgetized sidebars
+        
+        add_action('widgets_init',array($this,'register_sidebars'));
 
-	// Add words that we need to use in JS to the end of the page so they can be translated and still used.
-$params = array(
-	'my_favs'           => __( 'My Favorites', 'buddypress' ),
-	'accepted'          => __( 'Accepted', 'buddypress' ),
-	'rejected'          => __( 'Rejected', 'buddypress' ),
-	'show_all_comments' => __( 'Show all comments for this thread', 'buddypress' ),
-	'show_all'          => __( 'Show all', 'buddypress' ),
-	'comments'          => __( 'comments', 'buddypress' ),
-	'close'             => __( 'Close', 'buddypress' ),
-	'mention_explain'   => sprintf( __( "%s is a unique identifier for %s that you can type into any message on this site. %s will be sent a notification and a link to your message any time you use it.", 'buddypress' ), '@' . bp_get_displayed_user_username(), bp_get_user_firstname( bp_get_displayed_user_fullname() ), bp_get_user_firstname( bp_get_displayed_user_fullname() ) )
-);
-wp_localize_script( 'dtheme-ajax-js', 'BP_DTheme', $params );
+        
+    }
+    /**
+     * Factory method for singleton instance
+     * @return type 
+     */
+    function get_instance(){
+        if(!isset(self::$instance))
+                self::$instance=new self();
+        return self::$instance;
+    }
+    
+    function include_files(){
+        //load theme admin functions
+                /* Load the AJAX functions for the theme */
+        require_once( TEMPLATEPATH . '/_inc/ajax.php' );
+        //include library for unified search
+        include_once(TEMPLATEPATH."/lib/global-search.php");	
+        include_once(TEMPLATEPATH."/lib/borrowed-bp-functions.php");	
 
-}
-//load theme admin functions
-if(is_admin())
-    include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'theme-admin/admin.php');
+        if(is_admin())
+            include_once(TEMPLATEPATH.'/theme-admin/admin.php');
+
+    }
+  
+    
+    
+    function register_sidebars(){
+       
+            /* Register the widget columns */
+        //for welcome section
+        register_sidebar(  
+                array( 
+                        'name' => 'Welcome Section',
+                        'id'  =>'welcome-section',
+                        'before_widget' => '<div id="%1$s" class=" box widget %2$s">',
+                        'after_widget' => '<div class="clear"></div></div>',
+                        'before_title' => '<h2 class="widgettitle">',
+                        'after_title' => '</h2>'
+                ) 
+        );
+        //for homepage first section
+        register_sidebar( 
+                array( 
+                        'name' => 'Home Page First section',
+                        'id' => 'homepage-first-section',
+                        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+                        'after_widget' => '<div class="clear"></div></div></div>',
+                        'before_title' => '<h2 class="widgettitle">',
+                        'after_title' => '</h2><div class="widget-content">'
+                ) 
+        );
+        register_sidebar( 
+                array( 
+                        'name' => 'Home Page Main Column 1',
+                        'id' => 'homepage-main-col1',
+                        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+                        'after_widget' => '<div class="clear"></div></div></div>',
+                        'before_title' => '<h2 class="widgettitle">',
+                        'after_title' => '</h2><div class="widget-content">'
+                ) 
+        );
+        register_sidebar( 
+                array( 
+                        'name' => 'Homepage Main Column 2',
+                        'id' => 'homepage-main-col2',
+                        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+                        'after_widget' => '<div class="clear"></div></div></div>',
+                        'before_title' => '<h2 class="widgettitle">',
+                        'after_title' => '</h2><div class="widget-content">'
+                ) 
+        );
+        //for homepage/register/activation page
+        register_sidebar( array( 
+                        'name' => 'Sidebar',
+                        'id' => 'sidebar',
+                        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+                        'after_widget' => '<div class="clear"></div></div></div>',
+                        'before_title' => '<h3 class="widgettitle">',
+                        'after_title' => '</h3><div class="widget-content">'
+                ) 
+        );
+        //for blog pages
+        register_sidebar(array( 
+                        'name' => 'Blog Sidebar',
+                        'id' => 'blog-sidebar',
+                        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+                        'after_widget' => '<div class="clear"></div></div></div>',
+                        'before_title' => '<h3 class="widgettitle">',
+                        'after_title' => '</h3><div class="widget-content">'
+                ) 
+        );
+
+        register_sidebar( array( 
+                        'name' => 'Profile Sideabr Top',
+                        'id' => 'profile-sidebar-top',
+                        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+                        'after_widget' => '<div class="clear"></div></div></div>',
+                        'before_title' => '<h3 class="widgettitle">',
+                        'after_title' => '</h3><div class="widget-content">'
+                ) 
+        );
+    }
+
+
+      /**
+     * load javascript on the front end
+     */
+    function load_js(){
+        
+            if(apply_filters("cb_has_overlayed_login",true))
+                wp_enqueue_script( 'jquerytools', get_template_directory_uri() . '/_inc/jquery.tools.min.js', array( 'jquery') );
+            
+            wp_enqueue_script( 'dtheme-ajax-js', get_template_directory_uri() . '/_inc/global.js', array( 'jquery') );
+
+                // Add words that we need to use in JS to the end of the page so they can be translated and still used.
+            $params = array(
+                    'my_favs'           => __( 'My Favorites', 'buddypress' ),
+                    'accepted'          => __( 'Accepted', 'buddypress' ),
+                    'rejected'          => __( 'Rejected', 'buddypress' ),
+                    'show_all_comments' => __( 'Show all comments for this thread', 'buddypress' ),
+                    'show_all'          => __( 'Show all', 'buddypress' ),
+                    'comments'          => __( 'comments', 'buddypress' ),
+                    'close'             => __( 'Close', 'buddypress' ),
+                    'mention_explain'   => sprintf( __( "%s is a unique identifier for %s that you can type into any message on this site. %s will be sent a notification and a link to your message any time you use it.", 'buddypress' ), '@' . bp_get_displayed_user_username(), bp_get_user_firstname( bp_get_displayed_user_fullname() ), bp_get_user_firstname( bp_get_displayed_user_fullname() ) )
+            );
+            wp_localize_script( 'dtheme-ajax-js', 'BP_DTheme', $params );
+
+      
+    }
+    
+    function fix_buddybar_position(){?>
+    <style type="text/css">
+        div#wp-admin-bar{
+            position:fixed;
+        }
+    </style>
+    <?php    
+    }
+}//end of helper class
+
+CosmicBuddyThemeHelper::get_instance();
+
 
 //global vars for logo, topbar logo and bottombar log
 $cb_logo=get_option("cb_cb_header_logo");
@@ -117,87 +246,18 @@ add_image_size( 'single-post-thumbnail', $thumb_size['full']['width'],$thumb_siz
     
    
 
-/* Register the widget columns */
-//for welcome section
-register_sidebars( 1, 
-	array( 
-		'name' => 'welcome-section',
-		'before_widget' => '<div id="%1$s" class=" box widget %2$s">',
-                'after_widget' => '<div class="clear"></div></div>',
-                'before_title' => '<h2 class="widgettitle">',
-                'after_title' => '</h2>'
-	) 
-);
-//for homepage first section
-register_sidebars( 1, 
-	array( 
-		'name' => 'homepage-first-section',
-		'id' => 'homepage-first-section',
-		'before_widget' => '<div id="%1$s" class="widget %2$s">',
-                'after_widget' => '<div class="clear"></div></div></div>',
-                'before_title' => '<h2 class="widgettitle">',
-                'after_title' => '</h2><div class="widget-content">'
-	) 
-);
-register_sidebars( 1, 
-	array( 
-		'name' => 'homepage-main-col1',
-		'id' => 'homepage-main-col1',
-		'before_widget' => '<div id="%1$s" class="widget %2$s">',
-                'after_widget' => '<div class="clear"></div></div></div>',
-                'before_title' => '<h2 class="widgettitle">',
-                'after_title' => '</h2><div class="widget-content">'
-	) 
-);
-register_sidebars( 1, 
-	array( 
-		'name' => 'homepage-main-col2',
-		'id' => 'homepage-main-col2',
-		'before_widget' => '<div id="%1$s" class="widget %2$s">',
-                'after_widget' => '<div class="clear"></div></div></div>',
-                'before_title' => '<h2 class="widgettitle">',
-                'after_title' => '</h2><div class="widget-content">'
-	) 
-);
-//for homepage/register/activation page
-register_sidebars( 1,
-	array( 
-		'name' => 'sidebar',
-		'before_widget' => '<div id="%1$s" class="widget %2$s">',
-                'after_widget' => '<div class="clear"></div></div></div>',
-                'before_title' => '<h3 class="widgettitle">',
-                'after_title' => '</h3><div class="widget-content">'
-	) 
-);
-//for blog pages
-register_sidebars( 1,
-	array( 
-		'name' => 'blog-sidebar',
-		'before_widget' => '<div id="%1$s" class="widget %2$s">',
-                'after_widget' => '<div class="clear"></div></div></div>',
-                'before_title' => '<h3 class="widgettitle">',
-                'after_title' => '</h3><div class="widget-content">'
-	) 
-);
 
-register_sidebars( 1,
-	array( 
-		'name' => 'profile-sidebar-top',
-		'before_widget' => '<div id="%1$s" class="widget %2$s">',
-                'after_widget' => '<div class="clear"></div></div></div>',
-                'before_title' => '<h3 class="widgettitle">',
-                'after_title' => '</h3><div class="widget-content">'
-	) 
-);
 //end of add widget
  do_action("cb_after_setup_theme");
 }
 
+
 add_action("after_setup_theme","cb_setup_theme");
+
 	
 //add the login box in the footer as hidden
 if(apply_filters("cb_has_overlayed_login",true))
-add_action("wp_footer","cb_include_login_box");
+    add_action("wp_footer","cb_include_login_box");
 
 function cb_include_login_box(){
 ?>
@@ -371,17 +431,7 @@ function cb_get_sidebar($name){
        get_sidebar ($name);
 }
 
-//a work around for admin panel buddybar
-add_action('admin_print_styles','cb_fix_buddybar_position');
 
-function cb_fix_buddybar_position(){?>
-<style type="text/css">
-    div#wp-admin-bar{
-        position:fixed;
-    }
-</style>
-<?php    
-}
 
 function cb_friends_filter_content() {
 	$current_filter = bp_action_variable( 0 );
