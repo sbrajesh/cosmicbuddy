@@ -4,11 +4,12 @@ if ( !class_exists( 'BP_Core_User' ) )
 	return false;
 
 class CosmicBuddyThemeHelper{
+    
     private static $instance;
     
     private function __construct(){
         
-        $this->include_files();//or you can call $this->include_files just makes no difference
+        //or you can call $this->include_files just makes no difference
         add_action( 'wp_enqueue_scripts', array( $this, 'load_js' ) );
         add_action( 'wp_enqueue_scripts', array( $this, 'load_css' ) );
        
@@ -28,25 +29,16 @@ class CosmicBuddyThemeHelper{
      * @return CosmicBuddyThemeHelper
      */
     public static function get_instance(){
+        
         if( !isset( self::$instance ) )
                 self::$instance = new self();
         return self::$instance;
+        
     }
     
-    public function include_files(){
-        //load theme admin functions
-                /* Load the AJAX functions for the theme */
-        require_once( TEMPLATEPATH . '/_inc/ajax.php' );
-        //include library for unified search
-        include_once( TEMPLATEPATH . '/lib/global-search.php' );	
-        include_once( TEMPLATEPATH . '/lib/borrowed-bp-functions.php' );	
 
-        if( is_admin() )
-            include_once( TEMPLATEPATH . '/theme-admin/admin.php' );
-
-    }
-  
     public function setup(){
+        $this->load();
         
         $this->setup_nav();
         
@@ -60,7 +52,34 @@ class CosmicBuddyThemeHelper{
 
 
     }
+    /**
+     * Load required files
+     */
+    public function load(){
+        
+        $files = array(
+                'lib/template.php',
+                'lib/compat.php',
+                'lib/login-box.php',
+                '_inc/ajax.php',
+                'lib/global-search.php',
+                
+        );
+        
+        if( is_admin() )
+            $files[] = 'theme-admin/admin.php';
+        
+        $path = get_template_directory();
+        
+        foreach( $files as $file )
+            require_once $path . '/' . $file;
+       
+       
+
+    }
+  
     public function setup_nav(){
+        
         register_nav_menus( array(
                     'top-main-nav' => __( 'Top Main Navigation', "cb" ),
             ) );
@@ -152,7 +171,9 @@ class CosmicBuddyThemeHelper{
      * load javascript on the front end
      */
     public function load_js(){
+        
             $template_dir = get_template_directory_uri();
+            
             if( apply_filters( 'cb_has_overlayed_login', true ) )
                 wp_enqueue_script( 'jquerytools',  $template_dir . '/_inc/jquery.tools.min.js', array( 'jquery' ) );
             
@@ -233,82 +254,6 @@ function cb_get_the_body_class( $wp_classes, $custom_classes ) {
 
 
 
-
-//add the login box in the footer as hidden
-if(apply_filters("cb_has_overlayed_login",true))
-    add_action("wp_footer","cb_include_login_box");
-
-function cb_include_login_box(){
-?>
-<div class="welcomebar-wrap widget" id="login_box">
-<?php if(apply_filters("cb_show_default_login_overlay",true)):?>
-	<h3 class="widgettitle"><?php _e("Login Please","cb");?> </h3>
-					
-						<?php do_action( 'bp_before_sidebar_login_form' ) ?>
-
-						<p id="login-text">
-							<?php _e( 'To start connecting please log in first.', 'cb' ) ?>
-							<?php if ( bp_get_signup_allowed() ) : ?>
-								<?php printf( __( ' You can also <a href="%s" title="Create an account">create an account</a>.', 'cb' ), site_url( BP_REGISTER_SLUG . '/' ) ) ?>
-							<?php endif; ?>
-						</p>
-
-						<form name="login-form"  class="standard-form" action="<?php echo site_url('wp-login.php', 'login' );?>" method="post">
-							<label><?php _e( 'Username', 'cb' ) ?><br />
-                                                            <input type="text" name="log" id="sidebar-user-login" class="input" value="<?php echo esc_attr(stripslashes($user_login)); ?>" tabindex="1" /></label>
-							<br class="clear"/>
-							<label><?php _e( 'Password', 'cb' ) ?><br />
-                                                            <input type="password" name="pwd" id="sidebar-user-pass" class="input" value="" tabindex="2" /></label>
-							<br class="clear"/>	
-                                                        <p class="forgetmenot"><label><input name="rememberme" type="checkbox" id="sidebar-rememberme" value="forever" tabindex="3"/> <?php _e( 'Remember Me', 'cb' ) ?></label></p>
-
-							<?php do_action( 'bp_sidebar_login_form' ) ?>
-							<br class="clear"/>
-							<input type="submit" name="wp-submit" id="sidebar-wp-submit" value="<?php _e('Log In','cb'); ?>" tabindex="100" />
-							<input type="hidden" name="testcookie" value="1" />
-						<br class="clear"/>
-						</form>
-
-						<?php do_action( 'bp_after_sidebar_login_form' ) ?>
-	
-<?php endif;?>
-<?php do_action("cb_login_overlay_content");?>
-</div>
-<?php
-}
-//support for recent profile visitors plugin if enabled
-add_action("cb_after_profile_fields","cb_show_my_recent_visitor");//hook this to template
-function cb_show_my_recent_visitor(){
-    global $bp;
-   if(!function_exists("visitors_is_active_visitor_recording"))
-   return;
-
-   if(!bp_is_my_profile()||!visitors_is_active_visitor_recording($bp->displayed_user->id))//show only for logged in users and on their Home if they have set a prefence of showing it
-        return;
-    $recent_visitors=visitors_get_recent_visitors();
-   
-   if(empty($recent_visitors))
-       return;//if no visists yest, do not show at all
-	   ?>
-<div class='box recent-visitors'>
-				
-<div id="profile-activity" class='box-content'>
-	<div class="bp-widget">
-	<h4><?php _e("Recent Visitors","cb");?></h4>
-
-<?php				
-    
-    foreach($recent_visitors as $visitor){
-       echo visitors_build_visitor_html($visitor);
-    }
-?>
-	</div>
-  </div>
- </div> 
-<?php	
-   
-}
-
 function cb_activity_filter_links( $args = false ) {
 	echo cb_get_activity_filter_links( $args );//fix for bp activity filter issue with empty activities
 }
@@ -378,25 +323,7 @@ function cb_activity_filter_links( $args = false ) {
 			$links= implode( "\n", $component_links );
  		return apply_filters( 'bp_get_activity_filter_links',$links );
 	}
-/**
- * when footer navigation links are not assigned, let us suggest the user to add a menu with the links
- */
- function cb_footer_alt_menu(){?>
-<ul id="bottom-nav-bar"><li><a href="<?php echo get_bloginfo('url').'/wp-admin/nav-menus.php'?>"><?php _e("Please add the Footer Navigation Links using Appearance->Menu in the dashboard","cb");?></a></li>
-</ul>
-<?php
-     
- }
-/*helper function*/
-function cb_get_thumb_size(){
 
-   $thumb_size=array('full'=>array('width'=>350,'height'=>350),'thumb'=>array('width'=>150,'height'=>150));
-   return apply_filters("cb_get_post_thumb_sizes", $thumb_size);
-}
-
- function cb_get_theme_option($option){
-    return true;
-}
 
 
 /***extra new functions*/
@@ -431,16 +358,3 @@ function cb_friends_filter_content() {
 }
         
 
-function cb_main_nav_fallback( $args ) {
-	$pages_args = array(
-		'depth'      => 1,
-		'echo'       => false,
-		'exclude'    => '',
-		'title_li'   => ''
-	);
-	$menu = wp_page_menu( $pages_args );
-	$menu = str_replace( array( '<div class="menu"><ul>', '</ul></div>' ), array( '<ul id="top-nav-bar">', '</ul><!-- #nav -->' ), $menu );
-	echo $menu;
-
-	do_action( 'bp_nav_items' );
-}
