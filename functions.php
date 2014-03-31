@@ -22,7 +22,7 @@ class CosmicBuddyThemeHelper{
         
         add_action( 'after_setup_theme', array( $this, 'setup' ) );
 
-        
+        add_filter( 'body_class', array( $this, 'filter_body_class' ), 11, 2 );
     }
     /**
      * Factory method for singleton instance
@@ -200,6 +200,22 @@ class CosmicBuddyThemeHelper{
         wp_enqueue_style( 'theme-css' );
     }
     
+    function filter_body_class( $wp_classes, $custom_classes ) {
+				
+        if ( bp_is_blog_page() || bp_is_register_page() || bp_is_activation_page() )
+                $wp_classes[] = 'blog-page';
+
+        if ( !bp_is_blog_page() && !bp_is_register_page() && !bp_is_activation_page() )
+                $wp_classes[] = 'internal-page';
+
+
+        return $wp_classes ;
+	}
+        
+
+
+    
+    
     function fix_buddybar_position(){?>
     <style type="text/css">
         div#wp-admin-bar{
@@ -224,137 +240,4 @@ if(empty($cb_topbar_logo))
 	$cb_topbar_logo=get_stylesheet_directory_uri()."/_inc/images/topbar_logo.gif";
 if(empty($cb_bottombar_logo))
 	$cb_bottombar_logo=get_stylesheet_directory_uri()."/_inc/images/bottombar_logo.gif";
-
-/*** This was removed by Bp 1.2	*/
-/**
- * add the blog-page & internal-page class to body 
- */
-function cb_get_the_body_class( $wp_classes, $custom_classes ) {
-		global $bp;
-
-				
-		if ( bp_is_blog_page() || bp_is_register_page() || bp_is_activation_page() )
-			$bp_classes[] = 'blog-page';
-		
-		if ( !bp_is_blog_page() && !bp_is_register_page() && !bp_is_activation_page() )
-			$bp_classes[] = 'internal-page';
-				
-	
-		
- 
-		/* Merge WP classes with BP classes */
-		$classes = array_merge( (array) $bp_classes, (array) $wp_classes );
-		
-		/* Remove any duplicates */
-		$classes = array_unique( $classes );
-		
-		return apply_filters( 'bp_get_the_body_class', $classes, $bp_classes, $wp_classes, $custom_classes );
-	}
-	add_filter( 'body_class', 'cb_get_the_body_class', 11, 2 );
-
-
-
-function cb_activity_filter_links( $args = false ) {
-	echo cb_get_activity_filter_links( $args );//fix for bp activity filter issue with empty activities
-}
-	function cb_get_activity_filter_links( $args = false ) {
-		global $activities_template, $bp;
-
-		$defaults = array(
-			'style' => 'list'
-		);
-
-		$r = wp_parse_args( $args, $defaults );
-		extract( $r, EXTR_SKIP );
-
-		/* Fetch the names of components that have activity recorded in the DB */
-		$components = BP_Activity_Activity::get_recorded_components();
-
-		if ( !$components )
-			return false;
-
-		foreach ( (array) $components as $component ) {
-			/* Skip the activity comment filter */
-			if ( 'activity' == $component )
-				continue;
-
-			if ( isset( $_GET['afilter'] ) && $component == $_GET['afilter'] )
-				$selected = ' class="selected"';
-			else
-				unset($selected);
-
-			$component = esc_attr( $component );
-
-			switch ( $style ) {
-				case 'list':
-					$tag = 'li';
-					$before = '<li id="afilter-' . $component . '"' . $selected . '>';
-					$after = '</li>';
-				break;
-				case 'paragraph':
-					$tag = 'p';
-					$before = '<p id="afilter-' . $component . '"' . $selected . '>';
-					$after = '</p>';
-				break;
-				case 'span':
-					$tag = 'span';
-					$before = '<span id="afilter-' . $component . '"' . $selected . '>';
-					$after = '</span>';
-				break;
-			}
-
-			$link = add_query_arg( 'afilter', $component );
-			$link = remove_query_arg( 'acpage' , $link );
-
-			$link = apply_filters( 'bp_get_activity_filter_link_href', $link, $component );
-
-			/* Make sure all core internal component names are translatable */
-			$translatable_components = array( __( 'profile', 'cosmicbuddy'), __( 'friends', 'cosmicbuddy' ), __( 'groups', 'cosmicbuddy' ), __( 'status', 'cosmicbuddy' ), __( 'blogs', 'cosmicbuddy' ) );
-
-			$component_links[] = $before . '<a href="' . esc_attr( $link ) . '">' . ucwords( __( $component, 'cosmicbuddy' ) ) . '</a>' . $after;
-		}
-
-		$link = remove_query_arg( 'afilter' , $link );
-
-		if ( isset( $_GET['afilter'] ) )
-			$component_links[] = '<' . $tag . ' id="afilter-clear"><a href="' . esc_attr( $link ) . '"">' . __( 'Clear Filter', 'cosmicbuddy' ) . '</a></' . $tag . '>';
-		$links='';
-		if(!empty($component_links))
-			$links= implode( "\n", $component_links );
- 		return apply_filters( 'bp_get_activity_filter_links',$links );
-	}
-
-
-
-/***extra new functions*/
-/**
- * Includes sidebar in pages
- * Filter on cb_show_sidebar to hide it for specific component
- * @param type $name : name passed to get_sidebar
- */
-function cb_get_sidebar($name){
-   if(apply_filters("cb_show_sidebar",true)) //filter on this for specific page/component to hide the sidebar
-       get_sidebar ($name);
-}
-
-
-
-function cb_friends_filter_content() {
-	$current_filter = bp_action_variable( 0 );
-
-	switch ( $current_filter ) {
-		case 'recently-active': default:
-			
-			 locate_template( array( 'members/single/friends/active-friends.php' ), true );
-			 
-			break;
-		case 'newest':
-			_e( 'Newest', 'cosmicbuddy' );
-			break;
-		case 'alphabetically':
-			_e( 'Alphabetically', 'cosmicbuddy' );
-			break;
-	}
-}
-        
 
