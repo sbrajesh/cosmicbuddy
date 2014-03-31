@@ -22,7 +22,7 @@ p {
 }
 /*form fields*/
  input {
-	padding:1px;
+	padding: 5px;
 }
 /*-----------------------------general classes----------------------------------*/
 .clear, .reset {

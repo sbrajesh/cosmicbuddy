@@ -28,8 +28,8 @@ class CosmicBuddyThemeHelper{
      * @return CosmicBuddyThemeHelper
      */
     public static function get_instance(){
-        if(!isset(self::$instance))
-                self::$instance=new self();
+        if( !isset( self::$instance ) )
+                self::$instance = new self();
         return self::$instance;
     }
     
@@ -38,8 +38,8 @@ class CosmicBuddyThemeHelper{
                 /* Load the AJAX functions for the theme */
         require_once( TEMPLATEPATH . '/_inc/ajax.php' );
         //include library for unified search
-        include_once(TEMPLATEPATH . '/lib/global-search.php' );	
-        include_once(TEMPLATEPATH . '/lib/borrowed-bp-functions.php' );	
+        include_once( TEMPLATEPATH . '/lib/global-search.php' );	
+        include_once( TEMPLATEPATH . '/lib/borrowed-bp-functions.php' );	
 
         if( is_admin() )
             include_once( TEMPLATEPATH . '/theme-admin/admin.php' );
@@ -51,7 +51,7 @@ class CosmicBuddyThemeHelper{
         $this->setup_nav();
         
         add_theme_support( 'post-thumbnails' );
-        add_theme_support( 'buddypress' );
+        add_theme_support( 'cosmicbuddy' );
         
         $thumb_size = cb_get_thumb_size();
         
@@ -64,83 +64,85 @@ class CosmicBuddyThemeHelper{
         register_nav_menus( array(
                     'top-main-nav' => __( 'Top Main Navigation', "cb" ),
             ) );
-         register_nav_menus( array(
+        register_nav_menus( array(
                     'bottom-nav' => __( 'Footer Navigation Links', "cb" ),
-            ) );
+           ) );
     }
+    
     public function register_sidebars(){
        
-            /* Register the widget columns */
+        /* Register the widget columns */
         //for welcome section
         register_sidebar(  
                 array( 
-                        'name' => 'Welcome Section',
-                        'id'  =>'welcome-section',
-                        'before_widget' => '<div id="%1$s" class=" box widget %2$s">',
-                        'after_widget' => '<div class="clear"></div></div>',
-                        'before_title' => '<h2 class="widgettitle">',
-                        'after_title' => '</h2>'
+                    'name'          => 'Welcome Section',
+                    'id'            => 'welcome-section',
+                    'before_widget' => '<div id="%1$s" class=" box widget %2$s">',
+                    'after_widget'  => '<div class="clear"></div></div>',
+                    'before_title'  => '<h2 class="widgettitle">',
+                    'after_title'   => '</h2>'
                 ) 
         );
         //for homepage first section
         register_sidebar( 
                 array( 
-                        'name' => 'Home Page First section',
-                        'id' => 'homepage-first-section',
-                        'before_widget' => '<div id="%1$s" class="widget %2$s">',
-                        'after_widget' => '<div class="clear"></div></div></div>',
-                        'before_title' => '<h2 class="widgettitle">',
-                        'after_title' => '</h2><div class="widget-content">'
+                    'name'          => 'Home Page First section',
+                    'id'            => 'homepage-first-section',
+                    'before_widget' => '<div id="%1$s" class="widget %2$s">',
+                    'after_widget'  => '<div class="clear"></div></div></div>',
+                    'before_title'  => '<h2 class="widgettitle">',
+                    'after_title'   => '</h2><div class="widget-content">'
                 ) 
         );
         register_sidebar( 
                 array( 
-                        'name' => 'Home Page Main Column 1',
-                        'id' => 'homepage-main-col1',
-                        'before_widget' => '<div id="%1$s" class="widget %2$s">',
-                        'after_widget' => '<div class="clear"></div></div></div>',
-                        'before_title' => '<h2 class="widgettitle">',
-                        'after_title' => '</h2><div class="widget-content">'
+                    'name'          => 'Home Page Main Column 1',
+                    'id'            => 'homepage-main-col1',
+                    'before_widget' => '<div id="%1$s" class="widget %2$s">',
+                    'after_widget'  => '<div class="clear"></div></div></div>',
+                    'before_title'  => '<h2 class="widgettitle">',
+                    'after_title'   => '</h2><div class="widget-content">'
                 ) 
         );
         register_sidebar( 
                 array( 
-                        'name' => 'Homepage Main Column 2',
-                        'id' => 'homepage-main-col2',
-                        'before_widget' => '<div id="%1$s" class="widget %2$s">',
-                        'after_widget' => '<div class="clear"></div></div></div>',
-                        'before_title' => '<h2 class="widgettitle">',
-                        'after_title' => '</h2><div class="widget-content">'
+                    'name'          => 'Homepage Main Column 2',
+                    'id'            => 'homepage-main-col2',
+                    'before_widget' => '<div id="%1$s" class="widget %2$s">',
+                    'after_widget'  => '<div class="clear"></div></div></div>',
+                    'before_title'  => '<h2 class="widgettitle">',
+                    'after_title'   => '</h2><div class="widget-content">'
                 ) 
         );
         //for homepage/register/activation page
         register_sidebar( array( 
-                        'name' => 'Sidebar',
-                        'id' => 'sidebar',
-                        'before_widget' => '<div id="%1$s" class="widget %2$s">',
-                        'after_widget' => '<div class="clear"></div></div></div>',
-                        'before_title' => '<h3 class="widgettitle">',
-                        'after_title' => '</h3><div class="widget-content">'
+                    'name'          => 'Sidebar',
+                    'id'            => 'sidebar',
+                    'before_widget' => '<div id="%1$s" class="widget %2$s">',
+                    'after_widget'  => '<div class="clear"></div></div></div>',
+                    'before_title'  => '<h3 class="widgettitle">',
+                    'after_title'   => '</h3><div class="widget-content">'
                 ) 
         );
+        
         //for blog pages
         register_sidebar(array( 
-                        'name' => 'Blog Sidebar',
-                        'id' => 'blog-sidebar',
-                        'before_widget' => '<div id="%1$s" class="widget %2$s">',
-                        'after_widget' => '<div class="clear"></div></div></div>',
-                        'before_title' => '<h3 class="widgettitle">',
-                        'after_title' => '</h3><div class="widget-content">'
+                    'name'          => 'Blog Sidebar',
+                    'id'            => 'blog-sidebar',
+                    'before_widget' => '<div id="%1$s" class="widget %2$s">',
+                    'after_widget'  => '<div class="clear"></div></div></div>',
+                    'before_title'  => '<h3 class="widgettitle">',
+                    'after_title'   => '</h3><div class="widget-content">'
                 ) 
         );
 
         register_sidebar( array( 
-                        'name' => 'Profile Sideabr Top',
-                        'id' => 'profile-sidebar-top',
-                        'before_widget' => '<div id="%1$s" class="widget %2$s">',
-                        'after_widget' => '<div class="clear"></div></div></div>',
-                        'before_title' => '<h3 class="widgettitle">',
-                        'after_title' => '</h3><div class="widget-content">'
+                    'name'          => 'Profile Sideabr Top',
+                    'id'            => 'profile-sidebar-top',
+                    'before_widget' => '<div id="%1$s" class="widget %2$s">',
+                    'after_widget'  => '<div class="clear"></div></div></div>',
+                    'before_title'  => '<h3 class="widgettitle">',
+                    'after_title'   => '</h3><div class="widget-content">'
                 ) 
         );
     }
@@ -150,22 +152,22 @@ class CosmicBuddyThemeHelper{
      * load javascript on the front end
      */
     public function load_js(){
-        
-            if(apply_filters("cb_has_overlayed_login",true))
-                wp_enqueue_script( 'jquerytools', get_template_directory_uri() . '/_inc/jquery.tools.min.js', array( 'jquery') );
+            $template_dir = get_template_directory_uri();
+            if( apply_filters( 'cb_has_overlayed_login', true ) )
+                wp_enqueue_script( 'jquerytools',  $template_dir . '/_inc/jquery.tools.min.js', array( 'jquery' ) );
             
-            wp_enqueue_script( 'dtheme-ajax-js', get_template_directory_uri() . '/_inc/global.js', array( 'jquery') );
+            wp_enqueue_script( 'dtheme-ajax-js', $template_dir . '/_inc/global.js', array( 'jquery') );
 
                 // Add words that we need to use in JS to the end of the page so they can be translated and still used.
             $params = array(
-                    'my_favs'           => __( 'My Favorites', 'buddypress' ),
-                    'accepted'          => __( 'Accepted', 'buddypress' ),
-                    'rejected'          => __( 'Rejected', 'buddypress' ),
-                    'show_all_comments' => __( 'Show all comments for this thread', 'buddypress' ),
-                    'show_all'          => __( 'Show all', 'buddypress' ),
-                    'comments'          => __( 'comments', 'buddypress' ),
-                    'close'             => __( 'Close', 'buddypress' ),
-                    'mention_explain'   => sprintf( __( "%s is a unique identifier for %s that you can type into any message on this site. %s will be sent a notification and a link to your message any time you use it.", 'buddypress' ), '@' . bp_get_displayed_user_username(), bp_get_user_firstname( bp_get_displayed_user_fullname() ), bp_get_user_firstname( bp_get_displayed_user_fullname() ) )
+                    'my_favs'           => __( 'My Favorites', 'cosmicbuddy' ),
+                    'accepted'          => __( 'Accepted', 'cosmicbuddy' ),
+                    'rejected'          => __( 'Rejected', 'cosmicbuddy' ),
+                    'show_all_comments' => __( 'Show all comments for this thread', 'cosmicbuddy' ),
+                    'show_all'          => __( 'Show all', 'cosmicbuddy' ),
+                    'comments'          => __( 'comments', 'cosmicbuddy' ),
+                    'close'             => __( 'Close', 'cosmicbuddy' ),
+                    'mention_explain'   => sprintf( __( "%s is a unique identifier for %s that you can type into any message on this site. %s will be sent a notification and a link to your message any time you use it.", 'cosmicbuddy' ), '@' . bp_get_displayed_user_username(), bp_get_user_firstname( bp_get_displayed_user_fullname() ), bp_get_user_firstname( bp_get_displayed_user_fullname() ) )
             );
             wp_localize_script( 'dtheme-ajax-js', 'BP_DTheme', $params );
 
@@ -362,15 +364,15 @@ function cb_activity_filter_links( $args = false ) {
 			$link = apply_filters( 'bp_get_activity_filter_link_href', $link, $component );
 
 			/* Make sure all core internal component names are translatable */
-			$translatable_components = array( __( 'profile', 'buddypress'), __( 'friends', 'buddypress' ), __( 'groups', 'buddypress' ), __( 'status', 'buddypress' ), __( 'blogs', 'buddypress' ) );
+			$translatable_components = array( __( 'profile', 'cosmicbuddy'), __( 'friends', 'cosmicbuddy' ), __( 'groups', 'cosmicbuddy' ), __( 'status', 'cosmicbuddy' ), __( 'blogs', 'cosmicbuddy' ) );
 
-			$component_links[] = $before . '<a href="' . esc_attr( $link ) . '">' . ucwords( __( $component, 'buddypress' ) ) . '</a>' . $after;
+			$component_links[] = $before . '<a href="' . esc_attr( $link ) . '">' . ucwords( __( $component, 'cosmicbuddy' ) ) . '</a>' . $after;
 		}
 
 		$link = remove_query_arg( 'afilter' , $link );
 
 		if ( isset( $_GET['afilter'] ) )
-			$component_links[] = '<' . $tag . ' id="afilter-clear"><a href="' . esc_attr( $link ) . '"">' . __( 'Clear Filter', 'buddypress' ) . '</a></' . $tag . '>';
+			$component_links[] = '<' . $tag . ' id="afilter-clear"><a href="' . esc_attr( $link ) . '"">' . __( 'Clear Filter', 'cosmicbuddy' ) . '</a></' . $tag . '>';
 		$links='';
 		if(!empty($component_links))
 			$links= implode( "\n", $component_links );
@@ -420,10 +422,10 @@ function cb_friends_filter_content() {
 			 
 			break;
 		case 'newest':
-			_e( 'Newest', 'buddypress' );
+			_e( 'Newest', 'cosmicbuddy' );
 			break;
 		case 'alphabetically':
-			_e( 'Alphabetically', 'buddypress' );
+			_e( 'Alphabetically', 'cosmicbuddy' );
 			break;
 	}
 }
