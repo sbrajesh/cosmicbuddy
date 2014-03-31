@@ -7,44 +7,68 @@ class CosmicBuddyThemeHelper{
     private static $instance;
     
     private function __construct(){
+        
         $this->include_files();//or you can call $this->include_files just makes no difference
-        add_action('wp_enqueue_scripts',array($this,'load_js'));
+        add_action( 'wp_enqueue_scripts', array( $this, 'load_js' ) );
+        add_action( 'wp_enqueue_scripts', array( $this, 'load_css' ) );
        
         //a work around for admin panel buddybar
-        add_action('admin_print_styles',array($this,'fix_buddybar_position'));
+        add_action( 'admin_print_styles', array( $this, 'fix_buddybar_position' ) );
         
         //register widgetized sidebars
         
-        add_action('widgets_init',array($this,'register_sidebars'));
+        add_action( 'widgets_init', array( $this, 'register_sidebars' ) );
+        
+        add_action( 'after_setup_theme', array( $this, 'setup' ) );
 
         
     }
     /**
      * Factory method for singleton instance
-     * @return type 
+     * @return CosmicBuddyThemeHelper
      */
-    function get_instance(){
+    public static function get_instance(){
         if(!isset(self::$instance))
                 self::$instance=new self();
         return self::$instance;
     }
     
-    function include_files(){
+    public function include_files(){
         //load theme admin functions
                 /* Load the AJAX functions for the theme */
         require_once( TEMPLATEPATH . '/_inc/ajax.php' );
         //include library for unified search
-        include_once(TEMPLATEPATH."/lib/global-search.php");	
-        include_once(TEMPLATEPATH."/lib/borrowed-bp-functions.php");	
+        include_once(TEMPLATEPATH . '/lib/global-search.php' );	
+        include_once(TEMPLATEPATH . '/lib/borrowed-bp-functions.php' );	
 
-        if(is_admin())
-            include_once(TEMPLATEPATH.'/theme-admin/admin.php');
+        if( is_admin() )
+            include_once( TEMPLATEPATH . '/theme-admin/admin.php' );
 
     }
   
-    
-    
-    function register_sidebars(){
+    public function setup(){
+        
+        $this->setup_nav();
+        
+        add_theme_support( 'post-thumbnails' );
+        add_theme_support( 'buddypress' );
+        
+        $thumb_size = cb_get_thumb_size();
+        
+        set_post_thumbnail_size( $thumb_size['thumb']['width'],$thumb_size['thumb']['height'], true );
+        add_image_size( 'single-post-thumbnail', $thumb_size['full']['width'],$thumb_size['full']['height'] ); // Permalink thumbnail size
+
+
+    }
+    public function setup_nav(){
+        register_nav_menus( array(
+                    'top-main-nav' => __( 'Top Main Navigation', "cb" ),
+            ) );
+         register_nav_menus( array(
+                    'bottom-nav' => __( 'Footer Navigation Links', "cb" ),
+            ) );
+    }
+    public function register_sidebars(){
        
             /* Register the widget columns */
         //for welcome section
@@ -125,7 +149,7 @@ class CosmicBuddyThemeHelper{
       /**
      * load javascript on the front end
      */
-    function load_js(){
+    public function load_js(){
         
             if(apply_filters("cb_has_overlayed_login",true))
                 wp_enqueue_script( 'jquerytools', get_template_directory_uri() . '/_inc/jquery.tools.min.js', array( 'jquery') );
@@ -146,6 +170,11 @@ class CosmicBuddyThemeHelper{
             wp_localize_script( 'dtheme-ajax-js', 'BP_DTheme', $params );
 
       
+    }
+    public function load_css(){
+        
+        wp_register_style( 'theme-css', get_stylesheet_uri() );
+        wp_enqueue_style( 'theme-css' );
     }
     
     function fix_buddybar_position(){?>
@@ -202,59 +231,7 @@ function cb_get_the_body_class( $wp_classes, $custom_classes ) {
 
 
 
-//add_action("wp","add_extra_nav");
 
-function add_extra_nav(){
-global $bp;
-$groups_link = $bp->loggedin_user->domain . $bp->groups->slug . '/';
-
-$bp->bp_options_nav[$bp->groups->slug]["create"] = array(
-		'name' => "Create",
-		'link' => $groups_link . '/',
-		'slug' => $slug,
-		'css_id' => $item_css_id,
-		'position' => 100,
-		'user_has_access' => $user_has_access
-	);
-	//print_r($bp->options_nav);
-	/* Add the subnav items to the groups nav item */
-	//bp_core_new_subnav_item( array( 'name' => __( 'My Groups', 'buddypress' ), 'slug' => 'my-groups', 'parent_url' => $groups_link, 'parent_slug' => $bp->groups->slug, 'screen_function' => 'groups_screen_my_groups', 'position' => 10, 'item_css_id' => 'groups-my-groups' ) );
-	//bp_core_new_subnav_item( array( 'name' => __( 'aaaaa', 'buddypress' ), 'slug' => 'aaaa', 'parent_url' => $groups_link, 'parent_slug' => $bp->groups->slug, 'screen_function' => 'groups_screen_group_invites', 'position' => 30, 'user_has_access' => bp_is_my_profile() ) );
-
-
-}
-
-//setup the various features of theme(wp3.0 style using after theme setup hook)
-function cb_setup_theme(){
-/* Post thumbnail support*/
-add_theme_support( 'post-thumbnails' );
-$thumb_size=cb_get_thumb_size();
-set_post_thumbnail_size( $thumb_size['thumb']['width'],$thumb_size['thumb']['height'], true );
-add_image_size( 'single-post-thumbnail', $thumb_size['full']['width'],$thumb_size['full']['height']); // Permalink thumbnail size
-
-//custom top &bottom menu for wp3.0+
- if(cb_get_theme_option("show_top_nav")=="yes"&&cb_get_theme_option("use_wp_menu_in_top_nav")=="yes")
-          register_nav_menus( array(
-                    'top-main-nav' => __( 'Top Main Navigation', "cb" ),
-            ) );
-
-      if(cb_get_theme_option("show_top_sub_nav")=="yes"&&cb_get_theme_option("use_wp_menu_in_top_sub_nav")=="yes")
-          register_nav_menus( array(
-                    'bottom-nav' => __( 'Footer Navigation Links', "cb" ),
-            ) );
-    
-    
-   
-
-
-//end of add widget
- do_action("cb_after_setup_theme");
-}
-
-
-add_action("after_setup_theme","cb_setup_theme");
-
-	
 //add the login box in the footer as hidden
 if(apply_filters("cb_has_overlayed_login",true))
     add_action("wp_footer","cb_include_login_box");
@@ -451,4 +428,17 @@ function cb_friends_filter_content() {
 	}
 }
         
-?>
+
+function cb_main_nav_fallback( $args ) {
+	$pages_args = array(
+		'depth'      => 1,
+		'echo'       => false,
+		'exclude'    => '',
+		'title_li'   => ''
+	);
+	$menu = wp_page_menu( $pages_args );
+	$menu = str_replace( array( '<div class="menu"><ul>', '</ul></div>' ), array( '<ul id="top-nav-bar">', '</ul><!-- #nav -->' ), $menu );
+	echo $menu;
+
+	do_action( 'bp_nav_items' );
+}
