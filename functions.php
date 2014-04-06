@@ -13,8 +13,7 @@ class CosmicBuddyThemeHelper{
         add_action( 'wp_enqueue_scripts', array( $this, 'load_js' ) );
         add_action( 'wp_enqueue_scripts', array( $this, 'load_css' ) );
        
-        //a work around for admin panel buddybar
-        add_action( 'admin_print_styles', array( $this, 'fix_buddybar_position' ) );
+     
         
         //register widgetized sidebars
         
@@ -215,15 +214,7 @@ class CosmicBuddyThemeHelper{
 
 
     
-    
-    function fix_buddybar_position(){?>
-    <style type="text/css">
-        div#wp-admin-bar{
-            position:fixed;
-        }
-    </style>
-    <?php    
-    }
+
 }//end of helper class
 
 CosmicBuddyThemeHelper::get_instance();
